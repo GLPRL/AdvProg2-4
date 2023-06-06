@@ -3,16 +3,27 @@ package com.example.advprog2_4;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(resultCode == RESULT_OK && data!= null){
+            Uri selectedImage= data.getData();
+            ImageView image = findViewById(R.id.uploadImage);
+            image.setImageURI(selectedImage);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +35,16 @@ public class RegisterActivity extends AppCompatActivity {
         EditText etVerifyPassword = findViewById(R.id.verifyPassword);
         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
         Button btnLoginPage = findViewById(R.id.btnLoginPage);
+        Button btnUpload = findViewById(R.id.btnUpload);
+
+
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent,3);
+            }
+        });
         btnLoginPage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

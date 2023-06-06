@@ -107,6 +107,14 @@
             android:backgroundTint="#5A5A5A"
             android:drawableLeft="@drawable/baseline_upload_20"
             > </Button>
+        
+        <ImageView
+            android:id="@+id/uploadImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center">
+
+        </ImageView>
 
         <LinearLayout
             android:layout_width="match_parent"
