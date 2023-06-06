@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AdvProg2-4</string>
+    <string name="login_et_username">Username</string>
+    <string name="login_et_password">Password</string>
+    <string name="login_btnLogin">Login</string>
+    <string name="login_btnSignUp">Sign Up</string>
 </resources>
