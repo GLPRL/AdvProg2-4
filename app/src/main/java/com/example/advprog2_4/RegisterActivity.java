@@ -62,6 +62,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String displayName= etDisplay.getText().toString();
                 String password = etPassword.getText().toString();
                 String verifyPassword = etVerifyPassword.getText().toString();
+                ImageView imageView = findViewById(R.id.uploadImage);
+                if(imageView.getDrawable()== null){
+                    messageBuilder.append("Must upload image\n\n");
+                    validRegister=false;
+                }
                 if (username.length() <2 || username.length() >16) {
                     messageBuilder.append("Username should be 2-16 characters.\n\n");
                     validRegister=false;

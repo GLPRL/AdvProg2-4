@@ -91,7 +91,7 @@
             android:ems="10"
             android:hint="@string/register_display_name"
             android:background="@drawable/edit_text_login"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:drawableLeft="@drawable/baseline_account_circle_24"
             android:padding="10dp"
             android:drawablePadding="7dp"/>
