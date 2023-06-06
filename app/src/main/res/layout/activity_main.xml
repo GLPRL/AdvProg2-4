@@ -85,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="@string/login_btnLogin"
-                android:backgroundTint="#2500FF"/>
+                android:backgroundTint="#2500FF"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/btnSignUp"
@@ -93,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/login_btnSignUp"
-                android:backgroundTint="#2500FF"/>
+                android:backgroundTint="#2500FF"
+                android:textSize="20sp"/>
         </LinearLayout>
     </LinearLayout>
 
