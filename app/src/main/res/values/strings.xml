@@ -4,4 +4,6 @@
     <string name="login_et_password">Password</string>
     <string name="login_btnLogin">Login</string>
     <string name="login_btnSignUp">Sign Up</string>
+    <string name="register_et_verifyPassword">Verify Password</string>
+    <string name="register_display_name">Display Name</string>
 </resources>
