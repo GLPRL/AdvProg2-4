@@ -11,7 +11,7 @@ public class User {
     private int id;
     private String token;
     private String username;
-    private String displayname;
+    private String displayName;
     private String password;
 
     @Override
@@ -26,7 +26,7 @@ public class User {
         this.id = id;
         this.token = token;
         this.username = username;
-        this.displayname = displayname;
+        this.displayName = displayname;
         this.password = password;
         this.profileImg = profileImg;
     }
@@ -56,11 +56,11 @@ public class User {
     }
 
     public String getDisplayname() {
-        return displayname;
+        return displayName;
     }
 
     public void setDisplayname(String displayname) {
-        this.displayname = displayname;
+        this.displayName = displayname;
     }
 
     public String getPassword() {
