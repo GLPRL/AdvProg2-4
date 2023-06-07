@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity"
-    >
+    tools:context=".ChatActivity">
 
     <LinearLayout
-        android:id="@id/test"
+        android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#B3CEE5"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilePicView"
             android:layout_width="50dp"
@@ -21,8 +20,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/profile_pic_1"
-            />
+            android:src="@drawable/profile_pic_1" />
+
         <TextView
             android:id="@+id/loggedUser"
             android:layout_width="wrap_content"
@@ -30,13 +29,16 @@
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:text="Logged User"
-            android:textSize="20dp"
-            />
-
-
-        <!-- Add your content here, such as TextViews, buttons, etc. -->
+            android:textSize="20dp" />
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/test"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF" />
 
 </RelativeLayout>
