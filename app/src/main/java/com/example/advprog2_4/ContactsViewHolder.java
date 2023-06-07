@@ -1,4 +1,5 @@
 package com.example.advprog2_4;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -33,8 +34,13 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
                     public void run() {
                         // Revert the background color to its original state
                         relativeLayout.setBackgroundResource(android.R.color.transparent);
+
+                        // Start the ChatActivity and pass the values of displayName and image
+                        Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                        intent.putExtra("displayName", displayName.getText().toString());
+                        v.getContext().startActivity(intent);
                     }
-                }, 200); // Delay for 0.5 seconds (500 milliseconds)
+                }, 500); // Delay for 0.5 seconds (500 milliseconds)
             }
         });
     }
