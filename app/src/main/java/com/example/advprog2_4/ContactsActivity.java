@@ -34,26 +34,20 @@ public class ContactsActivity extends AppCompatActivity  {
     public List<Contact> generateContactList(){
         List<Contact> contactList = new ArrayList<Contact>();
         contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
         contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
         contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
         contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
         contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-
-
+        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
         return contactList;
     }
 }
