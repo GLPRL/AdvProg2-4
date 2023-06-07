@@ -13,7 +13,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ContactsActivity extends AppCompatActivity {
+public class ContactsActivity extends AppCompatActivity  {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
@@ -26,23 +27,32 @@ public class ContactsActivity extends AppCompatActivity {
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ContactsAdapter(getApplicationContext(),generateContactList()));
+        recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this,generateContactList()));
+
 
     }
     public List<Contact> generateContactList(){
         List<Contact> contactList = new ArrayList<Contact>();
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Naor","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Gal","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Naor","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Gal","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Naor","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Gal","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Naor","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Gal","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
+
 
         return contactList;
     }
