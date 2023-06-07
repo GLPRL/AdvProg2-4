@@ -1,6 +1,8 @@
 package com.example.advprog2_4;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,8 +16,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
+        TextView tvLoggedUser = findViewById(R.id.loggedUser);
+        tvLoggedUser.setText(username);
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
