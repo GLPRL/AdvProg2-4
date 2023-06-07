@@ -9,7 +9,8 @@
         android:background="@drawable/bg_message_right"
         android:orientation="vertical"
         android:padding="8dp"
-        android:layout_marginRight="7dp">>
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="20dp">>
 
         <TextView
             android:id="@+id/rightMessageTextView"
