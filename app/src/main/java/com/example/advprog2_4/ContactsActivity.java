@@ -1,12 +1,22 @@
 package com.example.advprog2_4;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +24,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsActivity extends AppCompatActivity  {
-
+    List<Contact> contactList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
@@ -27,10 +37,48 @@ public class ContactsActivity extends AppCompatActivity  {
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this,generateContactList()));
-
+        contactList=generateContactList();
+        recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this,contactList));
+        FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ContactsActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        FloatingActionButton btnAddContact = findViewById(R.id.btnAddContact);
+        btnAddContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContactsActivity.this);
+                builder.setTitle("Add Contact");
+                final EditText input = new EditText(ContactsActivity.this);
+                builder.setView(input);
+                input.setHint("Type username...");
+                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String username = input.getText().toString().trim();
+                        if (!username.isEmpty()) {
+                            Contact newContact = new Contact(username, "10/10/1999", R.drawable.profile_pic_1);
+                            contactList.add(newContact);
+                            recyclerView.getAdapter().notifyDataSetChanged();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
 
     }
+
     public List<Contact> generateContactList(){
         List<Contact> contactList = new ArrayList<Contact>();
         contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));

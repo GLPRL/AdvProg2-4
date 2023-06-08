@@ -32,7 +32,7 @@
             android:textSize="20dp"
             />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/newFloatingButton"
+            android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -42,7 +42,7 @@
        />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addContact"
+            android:id="@+id/btnAddContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
