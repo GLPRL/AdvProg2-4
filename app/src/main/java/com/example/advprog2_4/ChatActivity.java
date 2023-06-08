@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,13 @@ public class ChatActivity extends AppCompatActivity {
                     chatRecyclerView.scrollToPosition(messageList.size() - 1);
                     messageEditText.setText("");
                 }
+            }
+        });
+       FloatingActionButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              finish();
             }
         });
     }
