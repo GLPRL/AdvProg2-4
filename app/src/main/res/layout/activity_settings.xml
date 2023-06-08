@@ -6,10 +6,10 @@
     android:background="@drawable/white_background">
 
     <TextView
-        android:id="@+id/textViewPort"
+        android:id="@+id/tvServerAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Port Number"
+        android:text="Server Address"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -20,17 +20,17 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editTextPortNumber"
+            android:id="@+id/etServerAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="number"
+            android:inputType="text"
             android:background="@drawable/edit_text_login"
             android:padding="8dp"
-            android:hint="Enter port number" />
+            android:hint="Enter server Address" />
 
         <Button
-            android:id="@+id/buttonSavePort"
+            android:id="@+id/btnSetServerAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
