@@ -64,13 +64,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Type your message..."
-            android:inputType="text" />
+            android:inputType="text"
+            android:background="@drawable/edit_text_login"
+            android:padding="8dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send" />
+            android:text="Send"
+            android:textColor="@color/black"
+            android:drawableTint="@color/black"
+            android:backgroundTint="#B3CEE5"
+            app:icon="@drawable/baseline_send_24"
+            app:iconGravity="textStart"
+            android:textSize="20dp"
+            app:iconPadding="8dp"
+            app:paddingStart="16dp"
+            app:paddingEnd="16dp"
+            />
+
+
 
     </LinearLayout>
 
