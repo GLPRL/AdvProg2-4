@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -18,7 +20,14 @@ public class MainActivity extends AppCompatActivity {
         Button btnLogin =findViewById(R.id.btnLogin);
         EditText etUsername = findViewById(R.id.etUsernameLogin);
         EditText etPassword = findViewById(R.id.etPasswordLogin);
-
+        FloatingActionButton btnSettings = findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent intentSettings = new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(intentSettings);
+            }
+        });
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
