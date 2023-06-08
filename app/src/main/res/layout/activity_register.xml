@@ -105,6 +105,7 @@
             android:textSize="15sp"
             android:layout_gravity="center"
             android:backgroundTint="#5A5A5A"
+
             android:drawableLeft="@drawable/baseline_upload_20"
             > </Button>
         
@@ -133,7 +134,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="Login Page"
-                android:backgroundTint="#2500FF"
+                android:backgroundTint="@color/blue"
+                style="@style/loginRegisterButtons"
                 android:textSize="20sp"/>
 
             <Button
@@ -142,7 +144,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Register"
-                android:backgroundTint="#2500FF"
+                style="@style/loginRegisterButtons"
+
                 android:textSize="20sp"/>
         </LinearLayout>
     </LinearLayout>

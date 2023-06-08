@@ -1,7 +1,16 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AdvProg24" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<resources>
+    <style name="bg">
+        <item name="android:background">@drawable/dark_background</item>
+    </style>
+    <style name="loginRegisterButtons">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+    <style name="floatingButtons">
+        <item name="android:src">@drawable/baseline_settings_24</item>
+        <item name="backgroundTint">@color/black</item>
+    </style>
+    <style name="usernameEt">
+        <item name="android:drawableLeft">@drawable/baseline_account_circle_night</item>
     </style>
 </resources>
