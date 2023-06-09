@@ -13,11 +13,17 @@
     </style>
     <style name="usernameEt">
         <item name="android:drawableLeft">@drawable/baseline_account_circle_24</item>
+        <item name="android:background">@drawable/edit_text_login</item>
     </style>
     <style name="Theme.AdvProg24" parent="Base.Theme.AdvProg24" />
 
     <style name="passwordEt">
         <item name="android:drawableLeft">@drawable/baseline_lock_24</item>
+        <item name="android:background">@drawable/edit_text_login</item>
+    </style>
+
+    <style name="settingsEt">
+        <item name="android:background">@drawable/edit_text_login</item>
     </style>
 
     <style name="androidLogo">

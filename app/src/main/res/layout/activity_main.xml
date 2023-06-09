@@ -50,7 +50,6 @@
             android:ems="10"
             android:hint="@string/login_et_username"
             android:inputType="text"
-            android:background="@drawable/edit_text_login"
             style="@style/usernameEt"
             android:padding="10dp"
             android:drawablePadding="7dp"/>
@@ -63,7 +62,6 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="@string/login_et_password"
-            android:background="@drawable/edit_text_login"
             android:inputType="textPassword"
             style="@style/passwordEt"
             android:padding="10dp"

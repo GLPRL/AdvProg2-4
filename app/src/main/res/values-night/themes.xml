@@ -13,10 +13,16 @@
 
     <style name="usernameEt">
         <item name="android:drawableLeft">@drawable/baseline_account_circle_night</item>
+        <item name="android:background">@drawable/edit_text_login_night</item>
     </style>
 
     <style name="passwordEt">
         <item name="android:drawableLeft">@drawable/baseline_lock_night</item>
+        <item name="android:background">@drawable/edit_text_login_night</item>
+    </style>
+
+    <style name="settingsEt">
+        <item name="android:background">@drawable/edit_text_login_night</item>
     </style>
 
     <style name="androidLogo">
