@@ -38,6 +38,9 @@
         <item name="android:background">"#B3CEE5"</item>
     </style>
 
+    <style name="contactsBorder">
+        <item name="android:background">"#00BCD4"</item>
+    </style>
 
 
 

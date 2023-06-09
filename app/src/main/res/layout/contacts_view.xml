@@ -47,8 +47,7 @@
         android:layout_height="1dp"
         android:layout_below="@id/profilePicView"
         android:layout_marginTop="10dp"
-        android:background="#00BCD4"
-
+        style="@style/contactsBorder"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="0dp"
         />

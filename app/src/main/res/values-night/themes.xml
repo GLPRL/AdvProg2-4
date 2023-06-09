@@ -35,6 +35,9 @@
 
     <style name="topTab">
         <item name="android:background">"#2E3134"</item>
+    </style>
 
+    <style name="contactsBorder">
+        <item name="android:background">@color/white</item>
     </style>
 </resources>
