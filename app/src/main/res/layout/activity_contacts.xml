@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ContactsActivity"
+    style="@style/bg"
     >
 
     <LinearLayout
         android:id="@id/test"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#B3CEE5"
+        style="@style/topTab"
         android:orientation="horizontal"
         >
         <de.hdodenhof.circleimageview.CircleImageView
@@ -38,6 +39,7 @@
             android:layout_marginTop="5dp"
             android:layout_weight="0.1"
             android:layout_marginRight="10dp"
+            style="@style/floatingButtons"
             android:src="@drawable/baseline_logout_24"
        />
 
@@ -47,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:layout_marginTop="5dp"
+            style="@style/floatingButtons"
             android:src="@drawable/baseline_person_add_alt_1_40"
             >
 

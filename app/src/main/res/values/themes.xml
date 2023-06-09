@@ -24,6 +24,16 @@
         <item name="android:src">@drawable/ic_action_name</item>
     </style>
 
+    <style name="contactsChat">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="topTab">
+        <item name="android:background">"#B3CEE5"</item>
+    </style>
+
+
+
 
 
 </resources>

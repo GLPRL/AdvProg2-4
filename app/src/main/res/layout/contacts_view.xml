@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/displayName"
-            android:textColor="@color/black"
+            style="@style/contactsChat"
             android:textSize="20dp"
             android:layout_weight="1"
             tools:text="Dekel Schreiber"/>
@@ -36,8 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date"
+            style="@style/contactsChat"
             android:layout_weight="0.1"
-            android:textColor="@color/black"
             tools:text="10/10/1999"/>
 
     </LinearLayout>
