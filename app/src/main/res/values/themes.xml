@@ -42,7 +42,13 @@
         <item name="android:background">"#00BCD4"</item>
     </style>
 
+    <style name="chatBackground">
+        <item name="android:background">@drawable/chat_background</item>
+    </style>
 
+    <style name="sendButton">
+        <item name="android:backgroundTint">#B3CEE5</item>
+    </style>
 
 
 </resources>

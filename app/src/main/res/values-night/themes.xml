@@ -40,4 +40,14 @@
     <style name="contactsBorder">
         <item name="android:background">@color/white</item>
     </style>
+
+    <style name="chatBackground">
+        <item name="android:background">@drawable/chat_background_night</item>
+    </style>
+
+    <style name="sendButton">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+
 </resources>
