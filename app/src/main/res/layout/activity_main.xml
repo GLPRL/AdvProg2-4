@@ -21,7 +21,7 @@
             android:layout_marginTop="110dp"
             android:layout_width="94dp"
             android:layout_height="100dp"
-            app:srcCompat="@drawable/ic_action_name"
+            style="@style/androidLogo"
             />
 
         <TextView
@@ -65,7 +65,7 @@
             android:hint="@string/login_et_password"
             android:background="@drawable/edit_text_login"
             android:inputType="textPassword"
-            android:drawableLeft="@drawable/baseline_lock_24"
+            style="@style/passwordEt"
             android:padding="10dp"
             android:drawablePadding="7dp"/>
 
