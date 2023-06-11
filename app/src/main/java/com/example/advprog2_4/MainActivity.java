@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
                 if(etUsername.getText().toString().equals("Test") && etPassword.getText().toString().equals("123")) {
                     intent.putExtra("username", etUsername.getText().toString());
                     startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Incorrect password and/or username", Toast.LENGTH_LONG).show();
+                    etUsername.setText("");
+                    etPassword.setText("");
                 }
             }
         });
