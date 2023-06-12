@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/white_background"
+    style="@style/bg"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_marginTop="110dp"
             android:layout_width="94dp"
             android:layout_height="100dp"
-            app:srcCompat="@drawable/ic_action_name"
+            style="@style/androidLogo"
             />
 
         <TextView
@@ -50,8 +50,7 @@
             android:ems="10"
             android:hint="@string/login_et_username"
             android:inputType="text"
-            android:background="@drawable/edit_text_login"
-            android:drawableLeft="@drawable/baseline_account_circle_24"
+            style="@style/usernameEt"
             android:padding="10dp"
             android:drawablePadding="7dp"/>
 
@@ -63,9 +62,8 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="@string/login_et_password"
-            android:background="@drawable/edit_text_login"
             android:inputType="textPassword"
-            android:drawableLeft="@drawable/baseline_lock_24"
+            style="@style/passwordEt"
             android:padding="10dp"
             android:drawablePadding="7dp"/>
 
@@ -85,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="@string/login_btnLogin"
-                android:backgroundTint="#2500FF"
+                style="@style/loginRegisterButtons"
                 android:textSize="20sp"/>
 
             <Button
@@ -94,10 +92,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/login_btnSignUp"
-                android:backgroundTint="#2500FF"
+                style="@style/loginRegisterButtons"
                 android:textSize="20sp"/>
         </LinearLayout>
+
     </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/baseline_settings_24"
+        style="@style/floatingButtons"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 

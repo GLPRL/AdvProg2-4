@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactsActivity"
+    style="@style/bg"
+    >
+
+    <LinearLayout
+        android:id="@id/test"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        style="@style/topTab"
+        android:orientation="horizontal"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePicView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/loggedUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:text="Logged User"
+            android:textSize="20dp"
+            />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.1"
+            android:layout_marginRight="10dp"
+            style="@style/floatingButtons"
+            android:src="@drawable/baseline_logout_24"
+       />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnAddContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginTop="5dp"
+            style="@style/floatingButtons"
+            android:src="@drawable/baseline_person_add_alt_1_40"
+            >
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+        <!-- Add your content here, such as TextViews, buttons, etc. -->
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/test"
+        android:id="@+id/recyclerContacts"/>
+
+
+
+</RelativeLayout>

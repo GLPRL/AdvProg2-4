@@ -2,8 +2,53 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.AdvProg24" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    </style>
+    <style name="loginRegisterButtons">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/blue</item>
+    </style>
+    <style name="bg">
+        <item name="android:background">@drawable/white_background</item>
+    </style>
+    <style name="usernameEt">
+        <item name="android:drawableLeft">@drawable/baseline_account_circle_24</item>
+        <item name="android:background">@drawable/edit_text_login</item>
+    </style>
+    <style name="Theme.AdvProg24" parent="Base.Theme.AdvProg24" />
+
+    <style name="passwordEt">
+        <item name="android:drawableLeft">@drawable/baseline_lock_24</item>
+        <item name="android:background">@drawable/edit_text_login</item>
     </style>
 
-    <style name="Theme.AdvProg24" parent="Base.Theme.AdvProg24" />
+    <style name="settingsEt">
+        <item name="android:background">@drawable/edit_text_login</item>
+    </style>
+
+    <style name="androidLogo">
+        <item name="android:src">@drawable/ic_action_name</item>
+    </style>
+
+    <style name="contactsChat">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="topTab">
+        <item name="android:background">"#B3CEE5"</item>
+    </style>
+
+    <style name="contactsBorder">
+        <item name="android:background">"#00BCD4"</item>
+    </style>
+
+    <style name="chatBackground">
+        <item name="android:background">@drawable/chat_background</item>
+    </style>
+
+    <style name="sendButton">
+        <item name="android:backgroundTint">#B3CEE5</item>
+    </style>
+
+
 </resources>
