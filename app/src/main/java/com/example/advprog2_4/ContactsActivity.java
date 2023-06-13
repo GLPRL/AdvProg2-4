@@ -1,14 +1,20 @@
 package com.example.advprog2_4;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +26,16 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ContactsActivity extends AppCompatActivity  {
+public class ContactsActivity extends AppCompatActivity {
     List<Contact> contactList;
+    NotificationManager notificationManager;
+    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+    NotificationManagerCompat notificationManagerCompat;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
@@ -34,9 +46,16 @@ public class ContactsActivity extends AppCompatActivity  {
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        contactList=generateContactList();
+        contactList = generateContactList();
         recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, contactList));
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
+
+        createNotificationChannel();
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+
+        //TODO: Listen, and call to onNewMessage with notificationManagerCompat + channelID as argument
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +80,18 @@ public class ContactsActivity extends AppCompatActivity  {
                             Contact newContact = new Contact(0, username, R.drawable.profile_pic_1);
                             contactList.add(newContact);
                             recyclerView.getAdapter().notifyDataSetChanged();
+                            //Create new channel on adding new contact.
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                CharSequence name = "ChatApp";
+                                String desc = "New message from " + username;
+                                String channelID = String.valueOf(contactList.size() - 1);
+                                NotificationChannel channel = new NotificationChannel(channelID, name, importance);
+                                channel.setDescription(desc);
+
+                                channel = new NotificationChannel(channelID, name, importance);
+                                notificationManager.createNotificationChannel(channel);
+                            }
+
                         }
                     }
                 });
@@ -72,27 +103,68 @@ public class ContactsActivity extends AppCompatActivity  {
                 });
                 builder.show();
             }
+
         });
 
     }
 
-    public List<Contact> generateContactList(){
+    public List<Contact> generateContactList() {
         List<Contact> contactList = new ArrayList<Contact>();
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
         contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
         return contactList;
+    }
+
+    /**
+     * Create new channels when first logging in to the application
+     */
+    public void createNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            for (int i = 0; i < contactList.size(); i++) {
+                CharSequence name = "ChatApp";
+                String desc = "New message from " + contactList.get(i).getDisplayname();
+                String channelID = String.valueOf(i);
+                NotificationChannel channel = new NotificationChannel(channelID, name, importance);
+                channel.setDescription(desc);
+
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    /**
+     * Build and notify the user of a new message.
+     */
+    public void onNewMessage(int channelID) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, String.valueOf(channelID))
+                .setSmallIcon(contactList.get(channelID).getProfileImg())
+                .setContentTitle("ChatApp")
+                .setContentText("Message received from " + contactList.get(channelID).getDisplayname())
+                .setPriority(importance);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        notificationManagerCompat.notify(channelID, builder.build());
     }
 }
