@@ -8,11 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.advprog2_4.ChatActivity;
-import com.example.advprog2_4.Contact;
-import com.example.advprog2_4.ContactsActivity;
-import com.example.advprog2_4.ContactsViewHolder;
-import com.example.advprog2_4.R;
+import com.example.advprog2_4.objects.Contact;
 
 import java.util.List;
 
@@ -35,9 +31,9 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
 
     @Override
     public void onBindViewHolder( ContactsViewHolder holder, int position) {
-        holder.displayName.setText(contacts.get(position).getDisplayName());
-        holder.date.setText(contacts.get(position).getDate());
-        holder.profilePicView.setImageResource(contacts.get(position).getProfilePic());
+        holder.displayName.setText(contacts.get(position).getDisplayname());
+        holder.date.setText(contacts.get(position).getLastMsg());
+        holder.profilePicView.setImageResource(contacts.get(position).getProfileImg());
         if (holder.itemView != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -50,7 +46,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, ChatActivity.class);
                     int adapterPosition = holder.getAdapterPosition();
-                    String displayName = contacts.get(adapterPosition).getDisplayName();
+                    String displayName = contacts.get(adapterPosition).getDisplayname();
                     intent.putExtra("displayName", displayName);
                     // Pass any necessary data to the new activity
                     context.startActivity(intent);

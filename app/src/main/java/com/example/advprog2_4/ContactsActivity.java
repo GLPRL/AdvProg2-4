@@ -1,14 +1,10 @@
 package com.example.advprog2_4;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -16,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.advprog2_4.objects.Contact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class ContactsActivity extends AppCompatActivity  {
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactList=generateContactList();
-        recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this,contactList));
+        recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, contactList));
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +58,7 @@ public class ContactsActivity extends AppCompatActivity  {
                     public void onClick(DialogInterface dialog, int which) {
                         String username = input.getText().toString().trim();
                         if (!username.isEmpty()) {
-                            Contact newContact = new Contact(username, "10/10/1999", R.drawable.profile_pic_1);
+                            Contact newContact = new Contact(0, username, R.drawable.profile_pic_1);
                             contactList.add(newContact);
                             recyclerView.getAdapter().notifyDataSetChanged();
                         }
@@ -81,21 +78,21 @@ public class ContactsActivity extends AppCompatActivity  {
 
     public List<Contact> generateContactList(){
         List<Contact> contactList = new ArrayList<Contact>();
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Test","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Dekel","10/10/1999",R.drawable.profile_pic_1));
-        contactList.add(new Contact("Hemi","10/10/1999",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
+        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
         return contactList;
     }
 }
