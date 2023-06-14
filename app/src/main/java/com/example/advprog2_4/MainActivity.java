@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.advprog2_4.api.TokenAPI;
 import com.example.advprog2_4.api.UserAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,9 +20,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TokenAPI tokenAPI = new TokenAPI();
+        tokenAPI.post("ng", "aaaaaaa1");
 
-        UserAPI userAPI = new UserAPI();
-        userAPI.get("ng");
+
+        //UserAPI userAPI = new UserAPI();
+        //userAPI.get("ng");
 
         Button btnSignUp = findViewById(R.id.btnSignUp);
         Button btnLogin =findViewById(R.id.btnLogin);

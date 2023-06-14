@@ -1,12 +1,17 @@
 package com.example.advprog2_4.api;
 
 import com.example.advprog2_4.objects.User;
+import com.example.advprog2_4.objects.UserIdAndPassword;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -17,4 +22,7 @@ public interface WebServiceAPI {
 
         @POST("Users/")
         Call<User> postUser(@Body User user);
+
+        @POST("Tokens")
+        Call<String> postToken(@Header("Content-Type") String contentType, @Header("accept") String accept, @Body UserIdAndPassword userData);
 }
