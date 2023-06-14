@@ -52,6 +52,16 @@ public class ChatActivity extends AppCompatActivity {
                     chatRecyclerView.scrollToPosition(messageList.size() - 1);
                     messageEditText.setText("");
                     String token = ContactsActivity.getFBToken();
+
+                    //TODO: After being able to get ChatID, send to everyone and check if ID is correct.
+                    //TODO: If we have the chatID, then display the notification
+                    //String chatID = ???
+                    //RemoteMessage remoteMessage = new RemoteMessage.Builder(token)
+                    //        .addData(chatID, displayName)
+                    //        .build();
+                    //FirebaseMessaging.getInstance().send(remoteMessage);
+
+
                 }
             }
         });

@@ -27,6 +27,7 @@ public class ContactsActivity extends AppCompatActivity {
     List<Contact> contactList;
     static String FBToken;
     static String self;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -95,12 +96,20 @@ public class ContactsActivity extends AppCompatActivity {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             FBToken = task.getResult();
         });
+        //Each topic is a chatID
+        //for (int i = 0; i < contactList.size(); i++) {
+        //    FirebaseMessaging.getInstance().subscribeToTopic(contactList.get(i).getChatID());
+        //}
     }
 
     public static String getFBToken() {
         return FBToken;
     }
-    public static String getSelf() {return self;}
+
+    public static String getSelf() {
+        return self;
+    }
+
     public List<Contact> generateContactList() {
         List<Contact> contactList = new ArrayList<Contact>();
         contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
