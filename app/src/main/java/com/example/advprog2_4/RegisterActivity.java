@@ -3,6 +3,8 @@ package com.example.advprog2_4;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -95,6 +97,12 @@ public class RegisterActivity extends AppCompatActivity {
                     builder.show();
                 }
                 else{
+                    // converting image to string
+                    BitmapDrawable imageDrawable = (BitmapDrawable) imageView.getDrawable();
+                    Bitmap imageBitmap = imageDrawable.getBitmap();
+
+
+
                     builder.setTitle("Registered Successfully");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override

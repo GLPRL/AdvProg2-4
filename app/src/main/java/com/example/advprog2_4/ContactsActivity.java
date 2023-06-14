@@ -31,11 +31,15 @@ public class ContactsActivity extends AppCompatActivity  {
         TextView tvLoggedUser = findViewById(R.id.loggedUser);
         tvLoggedUser.setText(username);
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
+
+
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactList=generateContactList();
         recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, contactList));
+
+
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
