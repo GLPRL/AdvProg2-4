@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -56,6 +57,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         //TODO: Listen, and call to onNewMessage with notificationManagerCompat + channelID as argument
 
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +107,6 @@ public class ContactsActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
     public List<Contact> generateContactList() {
@@ -132,15 +133,15 @@ public class ContactsActivity extends AppCompatActivity {
      * Create new channels when first logging in to the application
      */
     public void createNotificationChannel() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             for (int i = 0; i < contactList.size(); i++) {
-                CharSequence name = "ChatApp";
-                String desc = "New message from " + contactList.get(i).getDisplayname();
+                CharSequence name = getString(R.string.channel_name);
+                String desc = getString(R.string.channel_name);
                 String channelID = String.valueOf(i);
                 NotificationChannel channel = new NotificationChannel(channelID, name, importance);
                 channel.setDescription(desc);
 
-                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager = getSystemService(NotificationManager.class);
                 notificationManager.createNotificationChannel(channel);
             }
         }
@@ -151,10 +152,10 @@ public class ContactsActivity extends AppCompatActivity {
      */
     public void onNewMessage(int channelID) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, String.valueOf(channelID))
-                .setSmallIcon(contactList.get(channelID).getProfileImg())
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("ChatApp")
                 .setContentText("Message received from " + contactList.get(channelID).getDisplayname())
-                .setPriority(importance);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -165,6 +166,6 @@ public class ContactsActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        notificationManagerCompat.notify(channelID, builder.build());
+        notificationManager.notify(channelID, builder.build());
     }
 }
