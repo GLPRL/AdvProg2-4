@@ -3,6 +3,15 @@ package com.example.advprog2_4;
 public class Global {
     private static Global instance;
     private String serverAddress;
+    private String token = "";
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     private Global() {
     }

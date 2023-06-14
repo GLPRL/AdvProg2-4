@@ -1,5 +1,8 @@
 package com.example.advprog2_4.api;
 
+import android.util.Log;
+
+import com.example.advprog2_4.Global;
 import com.example.advprog2_4.MyApplication;
 import com.example.advprog2_4.R;
 import com.example.advprog2_4.objects.UserIdAndPassword;
@@ -41,6 +44,11 @@ public class TokenAPI {
             public void onResponse(Call<String> call, Response<String> response) {
 
                 String token = response.body();
+                if (token == null) {
+                    Global.getInstance().setToken("");
+                } else {
+                    Global.getInstance().setToken(token);
+                }
 
             }
 

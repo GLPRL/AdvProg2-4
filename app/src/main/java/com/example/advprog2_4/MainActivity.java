@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TokenAPI tokenAPI = new TokenAPI();
-        tokenAPI.post("ng", "aaaaaaa1");
+        tokenAPI.post("ngasdas", "aaaaaaa1");
+        Log.i("TokenIs", Global.getInstance().getToken());
 
 
         //UserAPI userAPI = new UserAPI();
