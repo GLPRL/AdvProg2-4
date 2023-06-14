@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.advprog2_4.objects.Contact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +107,10 @@ public class ContactsActivity extends AppCompatActivity {
                 builder.show();
             }
 
+        });
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            String newToken = task.getResult();
         });
     }
 
