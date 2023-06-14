@@ -1,20 +1,14 @@
 package com.example.advprog2_4;
 
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,10 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsActivity extends AppCompatActivity {
     List<Contact> contactList;
-    NotificationManager notificationManager;
-    int importance = NotificationManager.IMPORTANCE_DEFAULT;
-    NotificationManagerCompat notificationManagerCompat;
-
+    static String FBToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +43,8 @@ public class ContactsActivity extends AppCompatActivity {
         recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, contactList));
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
 
-        createNotificationChannel();
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-
-        //TODO: Listen, and call to onNewMessage with notificationManagerCompat + channelID as argument
-
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +75,6 @@ public class ContactsActivity extends AppCompatActivity {
                                 CharSequence name = "ChatApp";
                                 String desc = "New message from " + username;
                                 String channelID = String.valueOf(contactList.size() - 1);
-                                NotificationChannel channel = new NotificationChannel(channelID, name, importance);
-                                channel.setDescription(desc);
-
-                                channel = new NotificationChannel(channelID, name, importance);
-                                notificationManager.createNotificationChannel(channel);
                             }
 
                         }
@@ -108,12 +90,14 @@ public class ContactsActivity extends AppCompatActivity {
             }
 
         });
-
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
-            String newToken = task.getResult();
+            FBToken = task.getResult();
         });
     }
 
+    public static String getFBToken() {
+        return FBToken;
+    }
     public List<Contact> generateContactList() {
         List<Contact> contactList = new ArrayList<Contact>();
         contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
@@ -134,43 +118,4 @@ public class ContactsActivity extends AppCompatActivity {
         return contactList;
     }
 
-    /**
-     * Create new channels when first logging in to the application
-     */
-    public void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            for (int i = 0; i < contactList.size(); i++) {
-                CharSequence name = getString(R.string.channel_name);
-                String desc = getString(R.string.channel_name);
-                String channelID = String.valueOf(i);
-                NotificationChannel channel = new NotificationChannel(channelID, name, importance);
-                channel.setDescription(desc);
-
-                notificationManager = getSystemService(NotificationManager.class);
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
-    }
-
-    /**
-     * Build and notify the user of a new message.
-     */
-    public void onNewMessage(int channelID) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, String.valueOf(channelID))
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("ChatApp")
-                .setContentText("Message received from " + contactList.get(channelID).getDisplayname())
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        notificationManager.notify(channelID, builder.build());
-    }
 }

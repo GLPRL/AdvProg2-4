@@ -51,6 +51,8 @@ public class ChatActivity extends AppCompatActivity {
                     adapter.notifyItemInserted(messageList.size() - 1);
                     chatRecyclerView.scrollToPosition(messageList.size() - 1);
                     messageEditText.setText("");
+                    String token = ContactsActivity.getFBToken();
+                    //TODO :String id = chatID;
                 }
             }
         });
