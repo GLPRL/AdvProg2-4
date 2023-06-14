@@ -20,7 +20,7 @@ public class ChatActivity extends AppCompatActivity {
     private MaterialButton sendButton;
     private RecyclerView chatRecyclerView;
     private EditText messageEditText;
-    private List<Message> messageList;
+    private List<MessageItem> messageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +46,12 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String messageText = messageEditText.getText().toString().trim();
                 if (!messageText.isEmpty()) {
-                    Message newMessage = new Message(messageText, 1);
+                    MessageItem newMessage = new MessageItem(messageText, 1);
                     messageList.add(newMessage);
                     adapter.notifyItemInserted(messageList.size() - 1);
                     chatRecyclerView.scrollToPosition(messageList.size() - 1);
                     messageEditText.setText("");
                     String token = ContactsActivity.getFBToken();
-                    //TODO :String id = chatID;
                 }
             }
         });
@@ -65,26 +64,26 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    public List<Message> generateMessages() {
-        List<Message> messages = new ArrayList<>();
-        messages.add(new Message("Hello", 1)); // Right-aligned message
-        messages.add(new Message("Hi", 0)); // Left-aligned message
-        messages.add(new Message("How are you?", 1)); // Right-aligned message
-        messages.add(new Message("I'm good, thanks!", 0)); // Left-aligned message
-        messages.add(new Message("Hello", 1)); // Right-aligned message
-        messages.add(new Message("Hi", 0)); // Left-aligned message
-        messages.add(new Message("How are you?", 1)); // Right-aligned message
-        messages.add(new Message("I'm good, thanks!", 0)); // Left-aligned message
-        messages.add(new Message("Hello", 1)); // Right-aligned message
-        messages.add(new Message("Hi", 0)); // Left-aligned message
-        messages.add(new Message("How are you?", 1)); // Right-aligned message
-        messages.add(new Message("I'm good, thanks!", 0)); // Left-aligned message
-        messages.add(new Message("Hello", 1)); // Right-aligned message
-        messages.add(new Message("Hi", 0)); // Left-aligned message
-        messages.add(new Message("How are you?", 1)); // Right-aligned message
-        messages.add(new Message("I'm good, thanks!", 0)); // Left-aligned message
-        messages.add(new Message("I'm good, thanks!", 0)); // Left-aligned message
-        messages.add(new Message("I'm good, thanks!", 0)); // Left-aligned message
+    public List<MessageItem> generateMessages() {
+        List<MessageItem> messages = new ArrayList<>();
+        messages.add(new MessageItem("Hello", 1)); // Right-aligned message
+        messages.add(new MessageItem("Hi", 0)); // Left-aligned message
+        messages.add(new MessageItem("How are you?", 1)); // Right-aligned message
+        messages.add(new MessageItem("I'm good, thanks!", 0)); // Left-aligned message
+        messages.add(new MessageItem("Hello", 1)); // Right-aligned message
+        messages.add(new MessageItem("Hi", 0)); // Left-aligned message
+        messages.add(new MessageItem("How are you?", 1)); // Right-aligned message
+        messages.add(new MessageItem("I'm good, thanks!", 0)); // Left-aligned message
+        messages.add(new MessageItem("Hello", 1)); // Right-aligned message
+        messages.add(new MessageItem("Hi", 0)); // Left-aligned message
+        messages.add(new MessageItem("How are you?", 1)); // Right-aligned message
+        messages.add(new MessageItem("I'm good, thanks!", 0)); // Left-aligned message
+        messages.add(new MessageItem("Hello", 1)); // Right-aligned message
+        messages.add(new MessageItem("Hi", 0)); // Left-aligned message
+        messages.add(new MessageItem("How are you?", 1)); // Right-aligned message
+        messages.add(new MessageItem("I'm good, thanks!", 0)); // Left-aligned message
+        messages.add(new MessageItem("I'm good, thanks!", 0)); // Left-aligned message
+        messages.add(new MessageItem("I'm good, thanks!", 0)); // Left-aligned message
         return messages;
     }
 }

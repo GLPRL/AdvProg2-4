@@ -3,6 +3,7 @@ package com.example.advprog2_4;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -25,12 +26,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactsActivity extends AppCompatActivity {
     List<Contact> contactList;
     static String FBToken;
-
+    static String self;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
+        self = username;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
         TextView tvLoggedUser = findViewById(R.id.loggedUser);
@@ -71,7 +73,7 @@ public class ContactsActivity extends AppCompatActivity {
                             contactList.add(newContact);
                             recyclerView.getAdapter().notifyDataSetChanged();
                             //Create new channel on adding new contact.
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 CharSequence name = "ChatApp";
                                 String desc = "New message from " + username;
                                 String channelID = String.valueOf(contactList.size() - 1);
@@ -98,6 +100,7 @@ public class ContactsActivity extends AppCompatActivity {
     public static String getFBToken() {
         return FBToken;
     }
+    public static String getSelf() {return self;}
     public List<Contact> generateContactList() {
         List<Contact> contactList = new ArrayList<Contact>();
         contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));

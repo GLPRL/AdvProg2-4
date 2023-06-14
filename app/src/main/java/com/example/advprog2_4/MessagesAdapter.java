@@ -8,15 +8,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.example.advprog2_4.R;
-
 import java.util.List;
 
 public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Message> messages;
+    private List<MessageItem> messages;
 
-    public MessagesAdapter(List<Message> messages) {
+    public MessagesAdapter(List<MessageItem> messages) {
         this.messages = messages;
     }
 
@@ -50,7 +47,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Message message = messages.get(position);
+        MessageItem message = messages.get(position);
 
         if (holder instanceof LeftMessageViewHolder) {
             LeftMessageViewHolder leftHolder = (LeftMessageViewHolder) holder;
