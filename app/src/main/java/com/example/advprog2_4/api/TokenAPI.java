@@ -4,6 +4,7 @@ import com.example.advprog2_4.MyApplication;
 import com.example.advprog2_4.R;
 import com.example.advprog2_4.objects.UserIdAndPassword;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -18,10 +19,14 @@ public class TokenAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
 
+    Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+
     public TokenAPI(){
         retrofit = new Retrofit.Builder()
                 .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
