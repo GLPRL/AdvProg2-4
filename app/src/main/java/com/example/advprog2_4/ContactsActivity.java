@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.advprog2_4.objects.Contact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,28 +25,36 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsActivity extends AppCompatActivity {
-    List<Contact> contactList;
+    List<Contact> contactList = new ArrayList<>();
     static String FBToken;
     static String self;
+    AppDB db;
+    ContactDao contactDao;
+    ContactsAdapter contactsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contacts);
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
+                .allowMainThreadQueries()
+                .build();
+
+        contactDao = db.contactDao();
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
         self = username;
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts);
         TextView tvLoggedUser = findViewById(R.id.loggedUser);
         tvLoggedUser.setText(username);
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        contactList = generateContactList();
-        recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, contactList));
+        generateContactList();
+        contactsAdapter = new ContactsAdapter(ContactsActivity.this, contactDao.index());
+        recyclerView.setAdapter(contactsAdapter);
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
-
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
 
@@ -53,6 +62,7 @@ public class ContactsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ContactsActivity.this, MainActivity.class);
+                db.clearAllTables();
                 startActivity(intent);
             }
         });
@@ -71,15 +81,16 @@ public class ContactsActivity extends AppCompatActivity {
                         String username = input.getText().toString().trim();
                         if (!username.isEmpty()) {
                             Contact newContact = new Contact(0, username, R.drawable.profile_pic_1);
-                            contactList.add(newContact);
-                            recyclerView.getAdapter().notifyDataSetChanged();
+                            contactDao.insert(newContact);
+                            contactsAdapter = new ContactsAdapter(ContactsActivity.this, contactDao.index());
+                            recyclerView.setAdapter(contactsAdapter);
                             //Create new channel on adding new contact.
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 CharSequence name = "ChatApp";
                                 String desc = "New message from " + username;
-                                String channelID = String.valueOf(contactList.size() - 1);
-                            }
+                                String channelID = String.valueOf(contactDao.index().size() - 1);
 
+                            }
                         }
                     }
                 });
@@ -110,24 +121,26 @@ public class ContactsActivity extends AppCompatActivity {
         return self;
     }
 
-    public List<Contact> generateContactList() {
-        List<Contact> contactList = new ArrayList<Contact>();
-        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi", R.drawable.profile_pic_1));
-        return contactList;
+    public void generateContactList() {
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
     }
 
+    protected void onDestroy() {
+        super.onDestroy();
+        db.clearAllTables();
+    }
 }
