@@ -16,4 +16,4 @@ We implementated a local DB using Dao and Room, to minimize the requests to the 
 
 When receiving new message from a contact, you'll also be notified of the new message, using Firebase.
 
-# <PlaceHolder for screenshots as examples>
+# PlaceHolder for screenshots as examples
