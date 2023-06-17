@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Global.getInstance().setToken("");
-
+        Global.getInstance().setUsername("");
+        Global.getInstance().setPassword("");
 
         //UserAPI userAPI = new UserAPI();
         //userAPI.get("ng");
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
+                Global.getInstance().setUsername(username);
+                Global.getInstance().setPassword(password);
                 Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
 
                 Retrofit retrofit;
