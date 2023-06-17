@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.advprog2_4.api.ChatAPI;
 import com.example.advprog2_4.objects.Contact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -32,6 +33,8 @@ public class ContactsActivity extends AppCompatActivity  {
         tvLoggedUser.setText(username);
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
 
+        ChatAPI chatAPI = new ChatAPI();
+        chatAPI.getAll();
 
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);

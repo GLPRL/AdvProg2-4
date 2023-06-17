@@ -1,5 +1,6 @@
 package com.example.advprog2_4.api;
 
+import com.example.advprog2_4.objects.Chat;
 import com.example.advprog2_4.objects.User;
 import com.example.advprog2_4.objects.UserIdAndPassword;
 import com.example.advprog2_4.objects.UserRegisterObject;
@@ -30,4 +31,13 @@ public interface WebServiceAPI {
 
         @POST("Users")
         Call<UserRegisterResponse> postUser(@Header("Content-Type") String contentType, @Header("accept") String accept, @Body UserRegisterObject userData);
+
+        @GET("Chats")
+        Call<List<Chat>> getAllChats(@Header("Authorization") String authorization, @Header("accept") String accept);
+
+        @POST("Chats")
+        Call<Chat> postChat();
+
+        @GET("Chats/{id}")
+        Call<Chat> getChat();
 }
