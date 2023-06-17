@@ -3,6 +3,7 @@ package com.example.advprog2_4.api;
 import com.example.advprog2_4.objects.User;
 import com.example.advprog2_4.objects.UserIdAndPassword;
 import com.example.advprog2_4.objects.UserRegisterObject;
+import com.example.advprog2_4.objects.UserRegisterResponse;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -28,5 +29,5 @@ public interface WebServiceAPI {
         Call<String> postToken(@Header("Content-Type") String contentType, @Header("accept") String accept, @Body UserIdAndPassword userData);
 
         @POST("Users")
-        Call<String> postUser(@Body UserRegisterObject userData);
+        Call<UserRegisterResponse> postUser(@Header("Content-Type") String contentType, @Header("accept") String accept, @Body UserRegisterObject userData);
 }

@@ -8,13 +8,28 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.advprog2_4.api.WebServiceAPI;
+import com.example.advprog2_4.objects.UserRegisterObject;
+import com.example.advprog2_4.objects.UserRegisterResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
     @Override
@@ -98,10 +113,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else{
                     // converting image to string
-                    BitmapDrawable imageDrawable = (BitmapDrawable) imageView.getDrawable();
-                    Bitmap imageBitmap = imageDrawable.getBitmap();
+                    //BitmapDrawable imageDrawable = (BitmapDrawable) imageView.getDrawable();
+                    //Bitmap imageBitmap = imageDrawable.getBitmap();
 
-
+                    UserRegisterObject userData = new UserRegisterObject(username, password, displayName, "pic1.jpg");
+                    postUser(userData);
 
                     builder.setTitle("Registered Successfully");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -118,6 +134,37 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void postUser(UserRegisterObject userData) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
+
+        Call<UserRegisterResponse> call = webServiceAPI.postUser("application/json", "text/plain" , userData);
+        call.enqueue(new Callback<UserRegisterResponse>() {
+            @Override
+            public void onResponse(Call<UserRegisterResponse> call, Response<UserRegisterResponse> response) {
+
+                String resp = response.toString();
+                Log.i("RegisterActivity", resp);
+
+            }
+            @Override
+            public void onFailure(Call<UserRegisterResponse> call, Throwable t) {
+                Log.e("RegisterActivity", "error msg is : " + t.getMessage());
+            }
+        });
+
+
+    }
+
+
 
 
 }
