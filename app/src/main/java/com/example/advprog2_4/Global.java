@@ -5,6 +5,16 @@ public class Global {
     private String serverAddress;
     private String token = "";
 
+    public boolean isWasRegisterValid() {
+        return wasRegisterValid;
+    }
+
+    public void setWasRegisterValid(boolean wasRegisterValid) {
+        this.wasRegisterValid = wasRegisterValid;
+    }
+
+    private boolean wasRegisterValid = false;
+
     public String getToken() {
         return token;
     }

@@ -32,6 +32,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -118,8 +119,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                     UserRegisterObject userData = new UserRegisterObject(username, password, displayName, "pic1.jpg");
                     postUser(userData);
-
-                    builder.setTitle("Registered Successfully");
+                    if (Global.getInstance().isWasRegisterValid()) {
+                        Global.getInstance().setWasRegisterValid(false);
+                        builder.setTitle("Registered Successfully");
+                    } else {
+                        builder.setTitle("Register was Unsuccessful, try again with different details");
+                    }
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -150,17 +155,23 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<UserRegisterResponse>() {
             @Override
             public void onResponse(Call<UserRegisterResponse> call, Response<UserRegisterResponse> response) {
-
-                String resp = response.toString();
-                Log.i("RegisterActivity", resp);
-
+                Global global = Global.getInstance();
+                int status = response.code();
+                if (status == 200) {
+                    global.setWasRegisterValid(true);
+                    //Log.i("RegisterActivity", "REQ STAT IS 200\n");
+                } else if (status == 409){
+                    global.setWasRegisterValid(false);
+                    //Log.i("RegisterActivity", "REQ STAT IS 409!\n");
+                }
             }
             @Override
             public void onFailure(Call<UserRegisterResponse> call, Throwable t) {
+                Global global = Global.getInstance();
+                global.setWasRegisterValid(false);
                 Log.e("RegisterActivity", "error msg is : " + t.getMessage());
             }
         });
-
 
     }
 
