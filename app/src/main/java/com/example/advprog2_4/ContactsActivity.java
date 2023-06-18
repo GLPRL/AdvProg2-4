@@ -24,7 +24,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsActivity extends AppCompatActivity  {
-    List<Contact> contactList;
+    //List<Contact> contactList;
     private ChatsViewModel chatsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +38,10 @@ public class ContactsActivity extends AppCompatActivity  {
         tvLoggedUser.setText(username);
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
         profilePicView.setImageResource(R.drawable.profile_pic_2);
-        //ChatAPI chatAPI = new ChatAPI();
-        //chatAPI.getAll();
-
 
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        contactList=generateContactList();
+        //contactList=generateContactList();
 
         chatsViewModel.getChats().observe(this, chats -> {
             recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
@@ -74,9 +71,12 @@ public class ContactsActivity extends AppCompatActivity  {
                     public void onClick(DialogInterface dialog, int which) {
                         String username = input.getText().toString().trim();
                         if (!username.isEmpty()) {
-                            Contact newContact = new Contact(0, username, R.drawable.profile_pic_1);
-                            contactList.add(newContact);
+                            //Contact newContact = new Contact(0, username, R.drawable.profile_pic_1);
+                            ChatAPI api = new ChatAPI();
+                            api.postChat(username);
+                            //contactList.add(newContact);
                             recyclerView.getAdapter().notifyDataSetChanged();
+                            recreate();
                         }
                     }
                 });

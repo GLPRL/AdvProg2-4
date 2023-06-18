@@ -38,7 +38,7 @@ public class ChatAPI {
             @Override
             public void onResponse(Call<List<Chat>> call, Response<List<Chat>> response) {
                 String token = Global.getInstance().getToken();
-                List<Chat> chats = response.body();
+                //List<Chat> chats = response.body();
                 chatsList.setValue(response.body());
             }
 
