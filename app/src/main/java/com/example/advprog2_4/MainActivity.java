@@ -57,81 +57,88 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-                Global.getInstance().setUsername(username);
-                Global.getInstance().setPassword(password);
-                Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
+                // http://10.0.2.2:5000
+                if (Global.getInstance().getServerAddress().compareTo("") != 0) {
+                    String username = etUsername.getText().toString();
+                    String password = etPassword.getText().toString();
+                    Global.getInstance().setUsername(username);
+                    Global.getInstance().setPassword(password);
+                    Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
 
-                Retrofit retrofit;
-                WebServiceAPI webServiceAPI;
-                Gson gson = new GsonBuilder()
-                        .setLenient()
-                        .create();
+                    Retrofit retrofit;
+                    WebServiceAPI webServiceAPI;
+                    Gson gson = new GsonBuilder()
+                            .setLenient()
+                            .create();
 
-                retrofit = new Retrofit.Builder()
-                        .baseUrl(Global.getInstance().getServerAddress())
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .build();
-                webServiceAPI = retrofit.create(WebServiceAPI.class);
+                    retrofit = new Retrofit.Builder()
+                            .baseUrl(Global.getInstance().getServerAddress())
+                            .addConverterFactory(GsonConverterFactory.create(gson))
+                            .build();
+                    webServiceAPI = retrofit.create(WebServiceAPI.class);
 
-                UserIdAndPassword userData = new UserIdAndPassword(username, password);
+                    UserIdAndPassword userData = new UserIdAndPassword(username, password);
 
 
-                Call<String> call = webServiceAPI.postToken("application/json", "*/*" , userData);
-                call.enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    Call<String> call = webServiceAPI.postToken("application/json", "*/*" , userData);
+                    call.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
 
-                        String token = response.body();
-                        if (token == null) {
-                            Global.getInstance().setToken("");
-                            Toast.makeText(getApplicationContext(), "Incorrect password and/or username", Toast.LENGTH_LONG).show();
-                            etUsername.setText("");
-                            etPassword.setText("");
-                        } else {
-                            Global.getInstance().setToken(token);
+                            String token = response.body();
+                            if (token == null) {
+                                Global.getInstance().setToken("");
+                                Toast.makeText(getApplicationContext(), "Incorrect password and/or username", Toast.LENGTH_LONG).show();
+                                etUsername.setText("");
+                                etPassword.setText("");
+                            } else {
+                                Global.getInstance().setToken(token);
 
-                            Retrofit retrofit;
-                            WebServiceAPI webServiceAPI;
-                            Gson gson = new GsonBuilder()
-                                    .setLenient()
-                                    .create();
+                                Retrofit retrofit;
+                                WebServiceAPI webServiceAPI;
+                                Gson gson = new GsonBuilder()
+                                        .setLenient()
+                                        .create();
 
-                            retrofit = new Retrofit.Builder()
-                                    .baseUrl(Global.getInstance().getServerAddress())
-                                    .addConverterFactory(GsonConverterFactory.create(gson))
-                                    .build();
-                            webServiceAPI = retrofit.create(WebServiceAPI.class);
-                            String userToken = "Bearer " + Global.getInstance().getToken();
+                                retrofit = new Retrofit.Builder()
+                                        .baseUrl(Global.getInstance().getServerAddress())
+                                        .addConverterFactory(GsonConverterFactory.create(gson))
+                                        .build();
+                                webServiceAPI = retrofit.create(WebServiceAPI.class);
+                                String userToken = "Bearer " + Global.getInstance().getToken();
 
-                            Call<ChatContact> call2 = webServiceAPI.getUser( userToken,"text/plain",Global.getInstance().getUsername());
-                            call2.enqueue(new Callback<ChatContact>() {
-                                @Override
-                                public void onResponse(Call<ChatContact> call, Response<ChatContact> response) {
-                                    ChatContact userDetails = response.body();
-                                    if (response.code() == 200) {
-                                        byte[] imageInBase64 = Base64.decode(userDetails.getProfilePic(), Base64.DEFAULT);
-                                        Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0 , imageInBase64.length);
-                                        Global.getInstance().setUserProfilePic(imageBitMap);
-                                        Global.getInstance().setUserDisplayName(userDetails.getDisplayName());
-                                        intent.putExtra("username", username);
-                                        startActivity(intent);
+                                Call<ChatContact> call2 = webServiceAPI.getUser( userToken,"text/plain",Global.getInstance().getUsername());
+                                call2.enqueue(new Callback<ChatContact>() {
+                                    @Override
+                                    public void onResponse(Call<ChatContact> call, Response<ChatContact> response) {
+                                        ChatContact userDetails = response.body();
+                                        if (response.code() == 200) {
+                                            byte[] imageInBase64 = Base64.decode(userDetails.getProfilePic(), Base64.DEFAULT);
+                                            Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0 , imageInBase64.length);
+                                            Global.getInstance().setUserProfilePic(imageBitMap);
+                                            Global.getInstance().setUserDisplayName(userDetails.getDisplayName());
+                                            intent.putExtra("username", username);
+                                            startActivity(intent);
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onFailure(Call<ChatContact> call, Throwable t) {
+                                    @Override
+                                    public void onFailure(Call<ChatContact> call, Throwable t) {
 
-                                }
-                            });
+                                    }
+                                });
+                            }
+
                         }
-
-                    }
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                        }
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Enter a server address in the Settings (top left)", Toast.LENGTH_LONG).show();
+                    etUsername.setText("");
+                    etPassword.setText("");
+                }
             }
         });
 
