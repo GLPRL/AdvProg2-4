@@ -2,6 +2,7 @@ package com.example.advprog2_4.api;
 
 import com.example.advprog2_4.objects.Chat;
 import com.example.advprog2_4.objects.ChatContact;
+import com.example.advprog2_4.objects.MessageItem;
 import com.example.advprog2_4.objects.PostChatResponse;
 import com.example.advprog2_4.objects.User;
 import com.example.advprog2_4.objects.UserIdAndPassword;
@@ -43,4 +44,7 @@ public interface WebServiceAPI {
 
         @GET("Chats/{id}")
         Call<Chat> getChat();
+
+        @GET("Chats/{id}/Messages")
+        Call<List<MessageItem>> getMessages(@Header("Authorization") String authorization, @Header("accept") String accept, @Path("id") int id);
 }

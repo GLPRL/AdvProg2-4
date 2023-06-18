@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.advprog2_4.api.ChatAPI;
+import com.example.advprog2_4.api.MessagesAPI;
 import com.example.advprog2_4.objects.Contact;
 import com.example.advprog2_4.viewmodels.ChatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,8 +29,8 @@ public class ContactsActivity extends AppCompatActivity  {
     private ChatsViewModel chatsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
 
+        chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
@@ -42,6 +43,9 @@ public class ContactsActivity extends AppCompatActivity  {
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //contactList=generateContactList();
+
+        //MessagesAPI messagesAPI = new MessagesAPI();
+        //messagesAPI.getMessages(1);
 
         chatsViewModel.getChats().observe(this, chats -> {
             recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
