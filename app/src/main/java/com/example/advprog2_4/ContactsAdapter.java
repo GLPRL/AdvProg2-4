@@ -2,6 +2,9 @@ package com.example.advprog2_4;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +41,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
         } else {
             holder.date.setText("");
         }
-        holder.profilePicView.setImageResource(R.drawable.pic1);
+        byte[] imageInBase64 = Base64.decode(contacts.get(position).getUser().getProfilePic(), Base64.DEFAULT);
+        Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0 , imageInBase64.length);
+        //holder.profilePicView.setImageResource(R.drawable.pic1);
+        holder.profilePicView.setImageBitmap(imageBitMap);
         if (holder.itemView != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

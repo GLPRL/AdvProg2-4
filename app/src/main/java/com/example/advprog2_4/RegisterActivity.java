@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,8 @@ import com.example.advprog2_4.objects.UserRegisterObject;
 import com.example.advprog2_4.objects.UserRegisterResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.io.ByteArrayOutputStream;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -113,11 +116,15 @@ public class RegisterActivity extends AppCompatActivity {
                     builder.show();
                 }
                 else{
-                    // converting image to string
-                    //BitmapDrawable imageDrawable = (BitmapDrawable) imageView.getDrawable();
-                    //Bitmap imageBitmap = imageDrawable.getBitmap();
+                     //converting image to string
+                    BitmapDrawable imageDrawable = (BitmapDrawable) imageView.getDrawable();
+                    Bitmap imageBitmap = imageDrawable.getBitmap();
+                    ByteArrayOutputStream imageAsString = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG,100,imageAsString);
+                    byte[] temp = imageAsString.toByteArray();
+                    String image = Base64.encodeToString(temp, Base64.DEFAULT);
 
-                    UserRegisterObject userData = new UserRegisterObject(username, password, displayName, "pic1.jpg");
+                    UserRegisterObject userData = new UserRegisterObject(username, password, displayName, image);
                     postUser(userData);
                     if (Global.getInstance().isWasRegisterValid()) {
                         Global.getInstance().setWasRegisterValid(false);

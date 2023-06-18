@@ -11,7 +11,7 @@ public class UserRegisterObject
         this.username = username;
         this.password = password;
         this.displayName = displayName;
-        this.profilePic = "pic1.jpg";         // placeholder
+        this.profilePic = profilePic;         // placeholder
     }
 
 }
