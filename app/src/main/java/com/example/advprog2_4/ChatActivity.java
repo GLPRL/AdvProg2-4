@@ -12,7 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.advprog2_4.api.MessagesAPI;
 import com.example.advprog2_4.objects.MessageItem;
+import com.example.advprog2_4.objects.PostMessageRequest;
 import com.example.advprog2_4.viewmodels.ChatsViewModel;
 import com.example.advprog2_4.viewmodels.MessagesViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -49,6 +51,7 @@ public class ChatActivity extends AppCompatActivity {
         messagesViewModel.getMessages().observe(this, messages -> {
             chatRecyclerView.setAdapter(new MessagesAdapter(ChatActivity.this, messages));
             chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            //chatRecyclerView.scrollToPosition(messageList.size() - 1);
         });
 
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +59,12 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String messageText = messageEditText.getText().toString().trim();
                 if (!messageText.isEmpty()) {
-                    //Message newMessage = new Message(messageText, 1);
-                    //messageList.add(newMessage);
-                    //adapter.notifyItemInserted(messageList.size() - 1);
+                    PostMessageRequest msg = new PostMessageRequest(messageText);
+                    MessagesAPI messagesAPI = new MessagesAPI();
+                    messagesAPI.postMessage(msg, Global.getInstance().getCurrentChatId());
                     //chatRecyclerView.scrollToPosition(messageList.size() - 1);
-                    //messageEditText.setText("");
+                    messageEditText.setText("");
+                    recreate();
                 }
             }
         });

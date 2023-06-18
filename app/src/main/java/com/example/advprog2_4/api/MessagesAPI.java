@@ -7,6 +7,8 @@ import com.example.advprog2_4.MyApplication;
 import com.example.advprog2_4.R;
 import com.example.advprog2_4.objects.Chat;
 import com.example.advprog2_4.objects.MessageItem;
+import com.example.advprog2_4.objects.PostMessageRequest;
+import com.example.advprog2_4.objects.PostMessageResponse;
 
 import java.util.List;
 
@@ -42,6 +44,21 @@ public class MessagesAPI {
 
             @Override
             public void onFailure(Call<List<MessageItem>> call, Throwable t) {
+            }
+        });
+    }
+
+    public void postMessage(PostMessageRequest msg, int id) {
+        String author = "Bearer " + Global.getInstance().getToken();
+        Call<PostMessageResponse> call = webServiceAPI.postMessage(author,"application/json", "*/*", id, msg);
+        call.enqueue(new Callback<PostMessageResponse>() {
+            @Override
+            public void onResponse(Call<PostMessageResponse> call, Response<PostMessageResponse> response) {
+                PostMessageResponse resp = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<PostMessageResponse> call, Throwable t) {
             }
         });
     }
