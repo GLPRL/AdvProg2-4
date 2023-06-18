@@ -9,11 +9,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.advprog2_4.api.ChatAPI;
 import com.example.advprog2_4.objects.Contact;
+import com.example.advprog2_4.viewmodels.ChatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -23,8 +25,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsActivity extends AppCompatActivity  {
     List<Contact> contactList;
+    private ChatsViewModel chatsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
+
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
@@ -32,15 +37,19 @@ public class ContactsActivity extends AppCompatActivity  {
         TextView tvLoggedUser = findViewById(R.id.loggedUser);
         tvLoggedUser.setText(username);
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
-
-        ChatAPI chatAPI = new ChatAPI();
-        chatAPI.postChat("ng2");
-
         profilePicView.setImageResource(R.drawable.profile_pic_2);
+        //ChatAPI chatAPI = new ChatAPI();
+        //chatAPI.getAll();
+
+
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactList=generateContactList();
-        recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, contactList));
+
+        chatsViewModel.getChats().observe(this, chats -> {
+            recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
+        });
+
 
 
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);

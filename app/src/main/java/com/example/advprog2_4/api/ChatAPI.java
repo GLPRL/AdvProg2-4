@@ -1,13 +1,14 @@
 package com.example.advprog2_4.api;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.advprog2_4.Global;
 import com.example.advprog2_4.MyApplication;
 import com.example.advprog2_4.R;
 import com.example.advprog2_4.objects.Chat;
-import com.example.advprog2_4.objects.ChatContact;
 import com.example.advprog2_4.objects.PostChatResponse;
-import com.example.advprog2_4.objects.User;
 import com.example.advprog2_4.objects.UsernameForPostChat;
+import com.example.advprog2_4.repositories.ChatsRepository;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ChatAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
-    public void getAll() {
+    public void getAll(MutableLiveData<List<Chat>> chatsList) {
         String author = "Bearer " + Global.getInstance().getToken();
         Call<List<Chat>> call = webServiceAPI.getAllChats(author, "text/plain");
         call.enqueue(new Callback<List<Chat>>() {
@@ -38,6 +39,7 @@ public class ChatAPI {
             public void onResponse(Call<List<Chat>> call, Response<List<Chat>> response) {
                 String token = Global.getInstance().getToken();
                 List<Chat> chats = response.body();
+                chatsList.setValue(response.body());
             }
 
             @Override
