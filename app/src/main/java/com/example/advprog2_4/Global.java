@@ -5,6 +5,15 @@ public class Global {
     private String serverAddress;
     private String token = "";
     private String username;
+    private int currentChatId;
+
+    public int getCurrentChatId() {
+        return currentChatId;
+    }
+
+    public void setCurrentChatId(int currentChatId) {
+        this.currentChatId = currentChatId;
+    }
 
     public String getUsername() {
         return username;

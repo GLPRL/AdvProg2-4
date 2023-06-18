@@ -52,6 +52,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
                     Intent intent = new Intent(context, ChatActivity.class);
                     int adapterPosition = holder.getAdapterPosition();
                     String displayName = contacts.get(adapterPosition).getUser().getDisplayName();
+                    Global.getInstance().setCurrentChatId(contacts.get(adapterPosition).getId());
                     intent.putExtra("displayName", displayName);
                     // Pass any necessary data to the new activity
                     context.startActivity(intent);

@@ -37,7 +37,7 @@ public class MessagesAPI {
             public void onResponse(Call<List<MessageItem>> call, Response<List<MessageItem>> response) {
                 String token = Global.getInstance().getToken();
                 List<MessageItem> messages = response.body();
-                //messagesList.setValue(response.body());
+                messagesList.setValue(response.body());
             }
 
             @Override

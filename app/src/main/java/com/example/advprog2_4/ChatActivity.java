@@ -8,9 +8,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.advprog2_4.objects.MessageItem;
+import com.example.advprog2_4.viewmodels.ChatsViewModel;
+import com.example.advprog2_4.viewmodels.MessagesViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -21,37 +25,42 @@ public class ChatActivity extends AppCompatActivity {
     private MaterialButton sendButton;
     private RecyclerView chatRecyclerView;
     private EditText messageEditText;
-    private List<Message> messageList;
+    private List<MessageItem> messageList;
+    private MessagesViewModel messagesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
         TextView tvUser = findViewById(R.id.loggedUser);
         Intent intent = getIntent();
         String displayName = intent.getStringExtra("displayName");
         tvUser.setText(displayName);
-
+        messagesViewModel = new ViewModelProvider(this).get(MessagesViewModel.class);
         chatRecyclerView = findViewById(R.id.chatRecyclerView);
         sendButton = findViewById(R.id.sendButton);
         messageEditText = findViewById(R.id.messageEditText);
 
-        messageList = generateMessages();
-        MessagesAdapter adapter = new MessagesAdapter(messageList);
-        chatRecyclerView.setAdapter(adapter);
-        chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //messageList = generateMessages();
+        //MessagesAdapter adapter = new MessagesAdapter(this, messageList);
+        //chatRecyclerView.setAdapter(adapter);
+        //chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        messagesViewModel.getMessages().observe(this, messages -> {
+            chatRecyclerView.setAdapter(new MessagesAdapter(ChatActivity.this, messages));
+            chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        });
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String messageText = messageEditText.getText().toString().trim();
                 if (!messageText.isEmpty()) {
-                    Message newMessage = new Message(messageText, 1);
-                    messageList.add(newMessage);
-                    adapter.notifyItemInserted(messageList.size() - 1);
-                    chatRecyclerView.scrollToPosition(messageList.size() - 1);
-                    messageEditText.setText("");
+                    //Message newMessage = new Message(messageText, 1);
+                    //messageList.add(newMessage);
+                    //adapter.notifyItemInserted(messageList.size() - 1);
+                    //chatRecyclerView.scrollToPosition(messageList.size() - 1);
+                    //messageEditText.setText("");
                 }
             }
         });
