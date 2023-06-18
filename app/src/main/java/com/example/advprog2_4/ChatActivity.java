@@ -21,13 +21,14 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
     private MaterialButton sendButton;
     private RecyclerView chatRecyclerView;
     private EditText messageEditText;
-    private List<MessageItem> messageList;
+    //private List<MessageItem> messageList;
     private MessagesViewModel messagesViewModel;
 
     @Override
@@ -49,7 +50,13 @@ public class ChatActivity extends AppCompatActivity {
         //chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         messagesViewModel.getMessages().observe(this, messages -> {
-            chatRecyclerView.setAdapter(new MessagesAdapter(ChatActivity.this, messages));
+            int messageSize = messages.size() - 1;
+            List<MessageItem> msgsReversed = new LinkedList<>();
+
+            for (int i = messageSize; i >= 0; i--) {
+                msgsReversed.add(messages.get(i));
+            }
+            chatRecyclerView.setAdapter(new MessagesAdapter(ChatActivity.this, msgsReversed));
             chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             //chatRecyclerView.scrollToPosition(messageList.size() - 1);
         });
