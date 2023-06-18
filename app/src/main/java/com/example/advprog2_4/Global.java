@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 public class Global {
     private static Global instance;
-    private String serverAddress;
+    private String serverAddress = "";
     private String token = "";
     private String username;
     private String userDisplayName;

@@ -26,30 +26,30 @@ import retrofit2.http.Path;
 
 public interface WebServiceAPI {
 
-        @GET("Users/{username}")
+        @GET("/api/Users/{username}")
         Call<ChatContact> getUser(@Header("Authorization") String authorization ,@Header("accept") String accept ,@Path("username") String username);
 
-        @POST("Users/")
+        @POST("/api/Users/")
         Call<User> postUser(@Body User user);
 
-        @POST("Tokens")
+        @POST("/api/Tokens")
         Call<String> postToken(@Header("Content-Type") String contentType, @Header("accept") String accept, @Body UserIdAndPassword userData);
 
-        @POST("Users")
+        @POST("/api/Users")
         Call<UserRegisterResponse> postUser(@Header("Content-Type") String contentType, @Header("accept") String accept, @Body UserRegisterObject userData);
 
-        @GET("Chats")
+        @GET("/api/Chats")
         Call<List<Chat>> getAllChats(@Header("Authorization") String authorization, @Header("accept") String accept);
 
-        @POST("Chats")
+        @POST("/api/Chats")
         Call<PostChatResponse> postChat(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("accept") String accept, @Body UsernameForPostChat username);
 
-        @GET("Chats/{id}")
+        @GET("/api/Chats/{id}")
         Call<Chat> getChat();
 
-        @GET("Chats/{id}/Messages")
+        @GET("/api/Chats/{id}/Messages")
         Call<List<MessageItem>> getMessages(@Header("Authorization") String authorization, @Header("accept") String accept, @Path("id") int id);
 
-        @POST("Chats/{id}/Messages")
+        @POST("/api/Chats/{id}/Messages")
         Call<PostMessageResponse> postMessage(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("accept") String accept, @Path("id") int id, @Body PostMessageRequest msg);
 }

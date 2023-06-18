@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         .create();
 
                 retrofit = new Retrofit.Builder()
-                        .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                        .baseUrl(Global.getInstance().getServerAddress())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
                 webServiceAPI = retrofit.create(WebServiceAPI.class);
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                                     .create();
 
                             retrofit = new Retrofit.Builder()
-                                    .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                                    .baseUrl(Global.getInstance().getServerAddress())
                                     .addConverterFactory(GsonConverterFactory.create(gson))
                                     .build();
                             webServiceAPI = retrofit.create(WebServiceAPI.class);
