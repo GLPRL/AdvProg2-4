@@ -5,6 +5,9 @@ ChatApp for Android
 
 An implemenation of a chat application, connecting to SWAGGER DB, written in Java.
 
+In order to communicate, first you need to start the server from:
+[AdvProg2-3](https://github.com/GLPRL/AdvProg2-3)
+
 The app is composed of 5 intents/screens:
 1) Login Page
 2) Settings: Change theme (dark/light modes) and connection settings
