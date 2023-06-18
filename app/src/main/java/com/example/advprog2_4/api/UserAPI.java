@@ -2,8 +2,10 @@ package com.example.advprog2_4.api;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.advprog2_4.Global;
 import com.example.advprog2_4.MyApplication;
 import com.example.advprog2_4.R;
+import com.example.advprog2_4.objects.ChatContact;
 import com.example.advprog2_4.objects.User;
 
 import retrofit2.Call;
@@ -27,17 +29,17 @@ public class UserAPI {
     }
 
     public void get(String username) {
-        Call<User> call = webServiceAPI.getUser(username);
-        call.enqueue(new Callback<User>() {
+        Call<ChatContact> call = webServiceAPI.getUser(Global.getInstance().getToken(),"text/plain", Global.getInstance().getUsername());
+        call.enqueue(new Callback<ChatContact>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<ChatContact> call, Response<ChatContact> response) {
 
-                User user = response.body();
+                ChatContact user = response.body();
 
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<ChatContact> call, Throwable t) {
             }
         });
     }

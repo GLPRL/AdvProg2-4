@@ -7,7 +7,16 @@ public class Global {
     private String serverAddress;
     private String token = "";
     private String username;
+    private Bitmap userProfilePic;
     private int currentChatId;
+
+    public Bitmap getUserProfilePic() {
+        return userProfilePic;
+    }
+
+    public void setUserProfilePic(Bitmap userProfilePic) {
+        this.userProfilePic = userProfilePic;
+    }
 
     private Bitmap currentContactImage;
 

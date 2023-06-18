@@ -3,7 +3,10 @@ package com.example.advprog2_4;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 import com.example.advprog2_4.api.TokenAPI;
 import com.example.advprog2_4.api.UserAPI;
 import com.example.advprog2_4.api.WebServiceAPI;
+import com.example.advprog2_4.objects.ChatContact;
+import com.example.advprog2_4.objects.User;
 import com.example.advprog2_4.objects.UserIdAndPassword;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -86,8 +91,40 @@ public class MainActivity extends AppCompatActivity {
                             etPassword.setText("");
                         } else {
                             Global.getInstance().setToken(token);
-                            intent.putExtra("username", username);
-                            startActivity(intent);
+
+                            Retrofit retrofit;
+                            WebServiceAPI webServiceAPI;
+                            Gson gson = new GsonBuilder()
+                                    .setLenient()
+                                    .create();
+
+                            retrofit = new Retrofit.Builder()
+                                    .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                                    .addConverterFactory(GsonConverterFactory.create(gson))
+                                    .build();
+                            webServiceAPI = retrofit.create(WebServiceAPI.class);
+                            String userToken = "Bearer " + Global.getInstance().getToken();
+
+                            Call<ChatContact> call2 = webServiceAPI.getUser( userToken,"text/plain",Global.getInstance().getUsername());
+                            call2.enqueue(new Callback<ChatContact>() {
+                                @Override
+                                public void onResponse(Call<ChatContact> call, Response<ChatContact> response) {
+                                    ChatContact userDetails = response.body();
+                                    if (response.code() == 200) {
+                                        byte[] imageInBase64 = Base64.decode(userDetails.getProfilePic(), Base64.DEFAULT);
+                                        Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0 , imageInBase64.length);
+                                        Global.getInstance().setUserProfilePic(imageBitMap);
+
+                                        intent.putExtra("username", username);
+                                        startActivity(intent);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ChatContact> call, Throwable t) {
+
+                                }
+                            });
                         }
 
                     }

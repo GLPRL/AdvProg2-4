@@ -27,7 +27,7 @@ import retrofit2.http.Path;
 public interface WebServiceAPI {
 
         @GET("Users/{username}")
-        Call<User> getUser(@Path("username") String username);
+        Call<ChatContact> getUser(@Header("Authorization") String authorization ,@Header("accept") String accept ,@Path("username") String username);
 
         @POST("Users/")
         Call<User> postUser(@Body User user);

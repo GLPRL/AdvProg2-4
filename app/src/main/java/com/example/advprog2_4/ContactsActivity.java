@@ -35,10 +35,12 @@ public class ContactsActivity extends AppCompatActivity  {
         String username = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
+        de.hdodenhof.circleimageview.CircleImageView profilePic = findViewById(R.id.profilePicView);
         TextView tvLoggedUser = findViewById(R.id.loggedUser);
         tvLoggedUser.setText(username);
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
         profilePicView.setImageResource(R.drawable.profile_pic_2);
+        profilePic.setImageBitmap(Global.getInstance().getUserProfilePic());
 
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
         //contactList=generateContactList();
