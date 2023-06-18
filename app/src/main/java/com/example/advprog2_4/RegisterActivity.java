@@ -128,26 +128,18 @@ public class RegisterActivity extends AppCompatActivity {
                     postUser(userData);
                     if (Global.getInstance().isWasRegisterValid()) {
                         Global.getInstance().setWasRegisterValid(false);
-                        builder.setTitle("Registered Successfully");
+                        //builder.setTitle("Registered Successfully");
                     } else {
-                        builder.setTitle("Register was Unsuccessful, try again with different details");
+                        //builder.setTitle("Register was Unsuccessful, try again with different details");
                     }
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-                    builder.setMessage("");
-                    builder.show();
                 }
             }
         });
     }
 
     private void postUser(UserRegisterObject userData) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -166,11 +158,23 @@ public class RegisterActivity extends AppCompatActivity {
                 int status = response.code();
                 if (status == 200) {
                     global.setWasRegisterValid(true);
+                    builder.setTitle("Registered Successfully");
                     //Log.i("RegisterActivity", "REQ STAT IS 200\n");
                 } else if (status == 409){
                     global.setWasRegisterValid(false);
+                    builder.setTitle("Register was Unsuccessful, try again with different details");
                     //Log.i("RegisterActivity", "REQ STAT IS 409!\n");
                 }
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setMessage("");
+                builder.show();
             }
             @Override
             public void onFailure(Call<UserRegisterResponse> call, Throwable t) {
