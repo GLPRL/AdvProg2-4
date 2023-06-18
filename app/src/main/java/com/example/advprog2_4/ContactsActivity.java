@@ -41,7 +41,6 @@ public class ContactsActivity extends AppCompatActivity  {
         profilePicView.setImageResource(R.drawable.profile_pic_2);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //contactList=generateContactList();
 
         //MessagesAPI messagesAPI = new MessagesAPI();
@@ -50,6 +49,7 @@ public class ContactsActivity extends AppCompatActivity  {
         chatsViewModel.getChats().observe(this, chats -> {
             recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 

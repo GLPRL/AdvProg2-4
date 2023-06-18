@@ -29,7 +29,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (messages.get(position).getSender().getUsername().compareTo(Global.getInstance().getUsername())==1) {
+        if (messages.get(position).getSender().getUsername().compareTo(Global.getInstance().getUsername())==0) {
             return 1; // Right-aligned message
         } else {
             return 0; // Left-aligned message
