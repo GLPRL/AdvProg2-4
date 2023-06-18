@@ -39,15 +39,14 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String displayName = intent.getStringExtra("displayName");
         tvUser.setText(displayName);
+
+        de.hdodenhof.circleimageview.CircleImageView contactImage = findViewById(R.id.profilePicView);
+        contactImage.setImageBitmap(Global.getInstance().getCurrentContactImage());
         messagesViewModel = new ViewModelProvider(this).get(MessagesViewModel.class);
         chatRecyclerView = findViewById(R.id.chatRecyclerView);
         sendButton = findViewById(R.id.sendButton);
         messageEditText = findViewById(R.id.messageEditText);
 
-        //messageList = generateMessages();
-        //MessagesAdapter adapter = new MessagesAdapter(this, messageList);
-        //chatRecyclerView.setAdapter(adapter);
-        //chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         messagesViewModel.getMessages().observe(this, messages -> {
             int messageSize = messages.size() - 1;

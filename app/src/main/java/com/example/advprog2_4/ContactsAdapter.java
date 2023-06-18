@@ -43,7 +43,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
         }
         byte[] imageInBase64 = Base64.decode(contacts.get(position).getUser().getProfilePic(), Base64.DEFAULT);
         Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0 , imageInBase64.length);
-        //holder.profilePicView.setImageResource(R.drawable.pic1);
+        Global.getInstance().setCurrentContactImage(imageBitMap);
+
         holder.profilePicView.setImageBitmap(imageBitMap);
         if (holder.itemView != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

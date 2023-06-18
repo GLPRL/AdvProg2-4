@@ -1,11 +1,23 @@
 package com.example.advprog2_4;
 
+import android.graphics.Bitmap;
+
 public class Global {
     private static Global instance;
     private String serverAddress;
     private String token = "";
     private String username;
     private int currentChatId;
+
+    private Bitmap currentContactImage;
+
+    public Bitmap getCurrentContactImage() {
+        return currentContactImage;
+    }
+
+    public void setCurrentContactImage(Bitmap currentContactImage) {
+        this.currentContactImage = currentContactImage;
+    }
 
     public int getCurrentChatId() {
         return currentChatId;
