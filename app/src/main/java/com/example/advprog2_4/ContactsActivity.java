@@ -37,7 +37,7 @@ public class ContactsActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_contacts);
         de.hdodenhof.circleimageview.CircleImageView profilePic = findViewById(R.id.profilePicView);
         TextView tvLoggedUser = findViewById(R.id.loggedUser);
-        tvLoggedUser.setText(username);
+        tvLoggedUser.setText(Global.getInstance().getUserDisplayName());
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         profilePic.setImageBitmap(Global.getInstance().getUserProfilePic());

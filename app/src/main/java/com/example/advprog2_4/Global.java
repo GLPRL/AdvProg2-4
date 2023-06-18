@@ -7,8 +7,17 @@ public class Global {
     private String serverAddress;
     private String token = "";
     private String username;
+    private String userDisplayName;
     private Bitmap userProfilePic;
     private int currentChatId;
+
+    public String getUserDisplayName() {
+        return userDisplayName;
+    }
+
+    public void setUserDisplayName(String userDisplayName) {
+        this.userDisplayName = userDisplayName;
+    }
 
     public Bitmap getUserProfilePic() {
         return userProfilePic;

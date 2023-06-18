@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                                         byte[] imageInBase64 = Base64.decode(userDetails.getProfilePic(), Base64.DEFAULT);
                                         Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0 , imageInBase64.length);
                                         Global.getInstance().setUserProfilePic(imageBitMap);
-
+                                        Global.getInstance().setUserDisplayName(userDetails.getDisplayName());
                                         intent.putExtra("username", username);
                                         startActivity(intent);
                                     }
