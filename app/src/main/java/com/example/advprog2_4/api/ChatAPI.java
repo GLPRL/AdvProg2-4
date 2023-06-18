@@ -4,7 +4,10 @@ import com.example.advprog2_4.Global;
 import com.example.advprog2_4.MyApplication;
 import com.example.advprog2_4.R;
 import com.example.advprog2_4.objects.Chat;
+import com.example.advprog2_4.objects.ChatContact;
+import com.example.advprog2_4.objects.PostChatResponse;
 import com.example.advprog2_4.objects.User;
+import com.example.advprog2_4.objects.UsernameForPostChat;
 
 import java.util.List;
 
@@ -41,6 +44,26 @@ public class ChatAPI {
             public void onFailure(Call<List<Chat>> call, Throwable t) {
             }
         });
+    }
+
+    public void postChat(String contactUsername){
+        String author = "Bearer " + Global.getInstance().getToken();
+        UsernameForPostChat user = new UsernameForPostChat(contactUsername);
+        Call<PostChatResponse> call = webServiceAPI.postChat(author, "application/json", "*/*", user);
+
+        call.enqueue(new Callback<PostChatResponse>() {
+            @Override
+            public void onResponse(Call<PostChatResponse> call, Response<PostChatResponse> response) {
+                String token = Global.getInstance().getToken();
+                PostChatResponse chat = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<PostChatResponse> call, Throwable t) {
+            }
+        });
+
+
     }
 
 

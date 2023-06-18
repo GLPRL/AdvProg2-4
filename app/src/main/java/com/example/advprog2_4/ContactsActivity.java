@@ -34,7 +34,7 @@ public class ContactsActivity extends AppCompatActivity  {
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
 
         ChatAPI chatAPI = new ChatAPI();
-        chatAPI.getAll();
+        chatAPI.postChat("ng2");
 
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
