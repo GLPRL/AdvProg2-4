@@ -1,5 +1,6 @@
 # AdvProg2-4
 ChatApp for Android
+<<<<<<< HEAD
 
 ### Chat Application for Android
 
