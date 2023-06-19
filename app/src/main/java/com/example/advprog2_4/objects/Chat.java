@@ -1,5 +1,8 @@
 package com.example.advprog2_4.objects;
 
+import androidx.room.Entity;
+
+@Entity
 public class Chat {
     private int id;
     private ChatContact user;
@@ -7,7 +10,7 @@ public class Chat {
 
     public Chat(int id, ChatContact user, LastMessage lastMessage) {
         this.id = id;
-        this.user = user;
+        //this.user = user;
         this.lastMessage = lastMessage;
     }
 

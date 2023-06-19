@@ -10,6 +10,15 @@ public class Global {
     private String userDisplayName;
     private Bitmap userProfilePic;
     private int currentChatId;
+    private ChatDao chatDao;
+
+    public ChatDao getChatDao() {
+        return chatDao;
+    }
+
+    public void setChatDao(ChatDao chatDao) {
+        this.chatDao = chatDao;
+    }
 
     public String getUserDisplayName() {
         return userDisplayName;
