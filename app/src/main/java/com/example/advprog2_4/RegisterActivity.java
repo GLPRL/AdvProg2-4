@@ -3,18 +3,39 @@ package com.example.advprog2_4;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.advprog2_4.api.WebServiceAPI;
+import com.example.advprog2_4.objects.UserRegisterObject;
+import com.example.advprog2_4.objects.UserRegisterResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.ByteArrayOutputStream;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class RegisterActivity extends AppCompatActivity {
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -95,21 +116,77 @@ public class RegisterActivity extends AppCompatActivity {
                     builder.show();
                 }
                 else{
-                    builder.setTitle("Registered Successfully");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-                    builder.setMessage("");
-                    builder.show();
+                     //converting image to string
+                    BitmapDrawable imageDrawable = (BitmapDrawable) imageView.getDrawable();
+                    Bitmap imageBitmap = imageDrawable.getBitmap();
+                    ByteArrayOutputStream imageAsString = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG,100,imageAsString);
+                    byte[] temp = imageAsString.toByteArray();
+                    String image = Base64.encodeToString(temp, Base64.DEFAULT);
+
+                    UserRegisterObject userData = new UserRegisterObject(username, password, displayName, image);
+                    postUser(userData);
+                    if (Global.getInstance().isWasRegisterValid()) {
+                        Global.getInstance().setWasRegisterValid(false);
+                        //builder.setTitle("Registered Successfully");
+                    } else {
+                        //builder.setTitle("Register was Unsuccessful, try again with different details");
+                    }
                 }
             }
         });
     }
+
+    private void postUser(UserRegisterObject userData) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
+
+        Call<UserRegisterResponse> call = webServiceAPI.postUser("application/json", "text/plain" , userData);
+        call.enqueue(new Callback<UserRegisterResponse>() {
+            @Override
+            public void onResponse(Call<UserRegisterResponse> call, Response<UserRegisterResponse> response) {
+                Global global = Global.getInstance();
+                int status = response.code();
+                if (status == 200) {
+                    global.setWasRegisterValid(true);
+                    builder.setTitle("Registered Successfully");
+                    //Log.i("RegisterActivity", "REQ STAT IS 200\n");
+                } else if (status == 409){
+                    global.setWasRegisterValid(false);
+                    builder.setTitle("Register was Unsuccessful, try again with different details");
+                    //Log.i("RegisterActivity", "REQ STAT IS 409!\n");
+                }
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setMessage("");
+                builder.show();
+            }
+            @Override
+            public void onFailure(Call<UserRegisterResponse> call, Throwable t) {
+                Global global = Global.getInstance();
+                global.setWasRegisterValid(false);
+                Log.e("RegisterActivity", "error msg is : " + t.getMessage());
+            }
+        });
+
+    }
+
+
 
 
 }

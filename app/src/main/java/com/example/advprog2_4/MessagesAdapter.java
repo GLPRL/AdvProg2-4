@@ -1,19 +1,21 @@
 package com.example.advprog2_4;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.advprog2_4.R;
+import com.example.advprog2_4.objects.MessageItem;
 import java.util.List;
 
 public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<MessageItem> messages;
 
-    public MessagesAdapter(List<MessageItem> messages) {
+
+    public MessagesAdapter(Context context, List<MessageItem> messages) {
         this.messages = messages;
     }
 
@@ -24,7 +26,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (messages.get(position).getSide()==1) {
+        if (messages.get(position).getSender().getUsername().compareTo(Global.getInstance().getUsername())==0) {
             return 1; // Right-aligned message
         } else {
             return 0; // Left-aligned message
@@ -51,10 +53,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if (holder instanceof LeftMessageViewHolder) {
             LeftMessageViewHolder leftHolder = (LeftMessageViewHolder) holder;
-            leftHolder.messageTextView.setText(message.getText());
+            leftHolder.messageTextView.setText(message.getContent());
         } else {
             RightMessageViewHolder rightHolder = (RightMessageViewHolder) holder;
-            rightHolder.messageTextView.setText(message.getText());
+            rightHolder.messageTextView.setText(message.getContent());
         }
     }
 

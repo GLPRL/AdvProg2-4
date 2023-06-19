@@ -16,11 +16,11 @@ public class User {
     private List<Contact> contactList;
     private int profileImg;
 
-    public User(int id, String token, String username, String displayname, String password, int profileImg) {
+    public User(int id, String token, String username, String displayName, String password, int profileImg) {
         this.id = id;
         this.token = token;
         this.username = username;
-        this.displayName = displayname;
+        this.displayName = displayName;
         this.password = password;
         this.profileImg = profileImg;
     }

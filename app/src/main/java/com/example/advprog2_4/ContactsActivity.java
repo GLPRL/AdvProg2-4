@@ -8,52 +8,61 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
+import com.example.advprog2_4.api.ChatAPI;
+import com.example.advprog2_4.api.MessagesAPI;
 import com.example.advprog2_4.objects.Contact;
+import com.example.advprog2_4.viewmodels.ChatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.messaging.FirebaseMessaging;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ContactsActivity extends AppCompatActivity {
-    List<Contact> contactList = new ArrayList<>();
-    static String FBToken;
-    static String self;
+
+public class ContactsActivity extends AppCompatActivity  {
     AppDB db;
     ContactDao contactDao;
     ContactsAdapter contactsAdapter;
 
+    //List<Contact> contactList;
+    private ChatsViewModel chatsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts);
+    
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
                 .allowMainThreadQueries()
                 .build();
 
         contactDao = db.contactDao();
-
+    
+        chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
-        self = username;
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contacts);
+        de.hdodenhof.circleimageview.CircleImageView profilePic = findViewById(R.id.profilePicView);
         TextView tvLoggedUser = findViewById(R.id.loggedUser);
-        tvLoggedUser.setText(username);
+        tvLoggedUser.setText(Global.getInstance().getUserDisplayName());
         CircleImageView profilePicView = findViewById(R.id.profilePicView);
         profilePicView.setImageResource(R.drawable.profile_pic_2);
+        profilePic.setImageBitmap(Global.getInstance().getUserProfilePic());
+
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
+        chatsViewModel.getChats().observe(this, chats -> {
+            recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        generateContactList();
+
+        //generateContactList();
         contactsAdapter = new ContactsAdapter(ContactsActivity.this, contactDao.index());
         recyclerView.setAdapter(contactsAdapter);
+        // TODO insert the contacts from the server get to dao
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
@@ -80,8 +89,13 @@ public class ContactsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String username = input.getText().toString().trim();
                         if (!username.isEmpty()) {
+
                             Contact newContact = new Contact(0, username, R.drawable.profile_pic_1);
                             contactDao.insert(newContact);
+                          
+                            ChatAPI api = new ChatAPI();
+                            api.postChat(username);
+                          
                             contactsAdapter = new ContactsAdapter(ContactsActivity.this, contactDao.index());
                             recyclerView.setAdapter(contactsAdapter);
                             //Create new channel on adding new contact.
@@ -91,6 +105,9 @@ public class ContactsActivity extends AppCompatActivity {
                                 String channelID = String.valueOf(contactDao.index().size() - 1);
 
                             }
+                            //recyclerView.getAdapter().notifyDataSetChanged();
+                            //recreate();
+
                         }
                     }
                 });
@@ -111,14 +128,6 @@ public class ContactsActivity extends AppCompatActivity {
         //for (int i = 0; i < contactList.size(); i++) {
         //    FirebaseMessaging.getInstance().subscribeToTopic(contactList.get(i).getChatID());
         //}
-    }
-
-    public static String getFBToken() {
-        return FBToken;
-    }
-
-    public static String getSelf() {
-        return self;
     }
 
     public void generateContactList() {
