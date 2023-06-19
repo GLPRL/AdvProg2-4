@@ -3,33 +3,44 @@ package com.example.advprog2_4;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.room.Room;
 import com.example.advprog2_4.api.ChatAPI;
 import com.example.advprog2_4.api.MessagesAPI;
 import com.example.advprog2_4.objects.Contact;
 import com.example.advprog2_4.viewmodels.ChatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
 public class ContactsActivity extends AppCompatActivity  {
+    AppDB db;
+    ContactDao contactDao;
+    ContactsAdapter contactsAdapter;
+
     //List<Contact> contactList;
     private ChatsViewModel chatsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
+                .allowMainThreadQueries()
+                .build();
 
+        contactDao = db.contactDao();
+    
         chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
@@ -43,23 +54,24 @@ public class ContactsActivity extends AppCompatActivity  {
         profilePic.setImageBitmap(Global.getInstance().getUserProfilePic());
 
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
-        //contactList=generateContactList();
-
-        //MessagesAPI messagesAPI = new MessagesAPI();
-        //messagesAPI.getMessages(1);
-
         chatsViewModel.getChats().observe(this, chats -> {
             recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
+        //generateContactList();
+        contactsAdapter = new ContactsAdapter(ContactsActivity.this, contactDao.index());
+        recyclerView.setAdapter(contactsAdapter);
+        // TODO insert the contacts from the server get to dao
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ContactsActivity.this, MainActivity.class);
+                db.clearAllTables();
                 startActivity(intent);
             }
         });
@@ -77,12 +89,25 @@ public class ContactsActivity extends AppCompatActivity  {
                     public void onClick(DialogInterface dialog, int which) {
                         String username = input.getText().toString().trim();
                         if (!username.isEmpty()) {
-                            //Contact newContact = new Contact(0, username, R.drawable.profile_pic_1);
+
+                            Contact newContact = new Contact(0, username, R.drawable.profile_pic_1);
+                            contactDao.insert(newContact);
+                          
                             ChatAPI api = new ChatAPI();
                             api.postChat(username);
-                            //contactList.add(newContact);
-                            recyclerView.getAdapter().notifyDataSetChanged();
-                            recreate();
+                          
+                            contactsAdapter = new ContactsAdapter(ContactsActivity.this, contactDao.index());
+                            recyclerView.setAdapter(contactsAdapter);
+                            //Create new channel on adding new contact.
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                CharSequence name = "ChatApp";
+                                String desc = "New message from " + username;
+                                String channelID = String.valueOf(contactDao.index().size() - 1);
+
+                            }
+                            //recyclerView.getAdapter().notifyDataSetChanged();
+                            //recreate();
+
                         }
                     }
                 });
@@ -94,27 +119,37 @@ public class ContactsActivity extends AppCompatActivity  {
                 });
                 builder.show();
             }
-        });
 
+        });
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            FBToken = task.getResult();
+        });
+        //Each topic is a chatID
+        //for (int i = 0; i < contactList.size(); i++) {
+        //    FirebaseMessaging.getInstance().subscribeToTopic(contactList.get(i).getChatID());
+        //}
     }
 
-    public List<Contact> generateContactList(){
-        List<Contact> contactList = new ArrayList<Contact>();
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel", R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Test",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Dekel",R.drawable.profile_pic_1));
-        contactList.add(new Contact(0, "Hemi",R.drawable.profile_pic_1));
-        return contactList;
+    public void generateContactList() {
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Test", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Dekel", R.drawable.profile_pic_1));
+        contactDao.insert(new Contact(0, "Hemi", R.drawable.profile_pic_1));
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        db.clearAllTables();
     }
 }

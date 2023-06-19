@@ -1,12 +1,10 @@
 package com.example.advprog2_4;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Handler;
-import android.view.MotionEvent;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ContactsViewHolder extends RecyclerView.ViewHolder {

@@ -1,20 +1,14 @@
 package com.example.advprog2_4.objects;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import java.util.List;
 
-@Entity
 public class User {
-    @PrimaryKey(autoGenerate = true)
     private int id;
     private String token;
     private String username;
     private String displayName;
     private String password;
 
-    @Override
     public String toString() {
         return username;
     }

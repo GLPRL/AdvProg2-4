@@ -1,10 +1,10 @@
 package com.example.advprog2_4;
 
-public class Message {
+public class MessageItem {
     private String text;
     private int side;
 
-    public Message(String text, int side) {
+    public MessageItem(String text, int side) {
         this.text = text;
         this.side = side;
     }

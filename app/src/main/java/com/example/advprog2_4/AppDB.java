@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.advprog2_4.objects.Contact;
 
-@Database(entities = {Contact.class}, version = 1)
+@Database(entities = {Contact.class}, version = 1, exportSchema = false)
 public abstract class AppDB extends RoomDatabase {
-    public abstract ContactDao ContactDao();
+    public abstract ContactDao contactDao();
 }
