@@ -1,8 +1,5 @@
 package com.example.advprog2_4.objects;
 
-import androidx.room.Entity;
-
-@Entity
 public class Chat {
     private int id;
     private ChatContact user;

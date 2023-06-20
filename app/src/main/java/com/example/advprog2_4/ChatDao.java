@@ -6,17 +6,16 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.advprog2_4.objects.Chat;
 import com.example.advprog2_4.objects.ConvertedChat;
 
 import java.util.List;
 
 @Dao
 public interface ChatDao {
-    @Query("SELECT * FROM chat")
+    @Query("SELECT * FROM convertedchat")
     List<ConvertedChat> index();
 
-    @Query("SELECT * FROM chat WHERE id = :id")
+    @Query("SELECT * FROM convertedchat WHERE id = :id")
     ConvertedChat get(int id);
 
     @Insert

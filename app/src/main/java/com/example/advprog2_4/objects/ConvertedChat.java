@@ -1,6 +1,12 @@
 package com.example.advprog2_4.objects;
 
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class ConvertedChat {
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String displayName;
     private String profilePic;
