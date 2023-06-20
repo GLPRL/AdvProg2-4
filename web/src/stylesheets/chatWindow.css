@@ -1,0 +1,189 @@
+.content {
+    position: absolute;
+    left: 50%;
+    top: 380px;
+    transform: translate(-50%, -50%);
+}
+.chatProfile {
+    background-color: aliceblue;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+}
+.chatUserName {
+    margin:5%;
+    color:black;
+}
+.messagesWindow {
+    height: 84%;
+    background-image: url('../images/Screenshot_4.jpg');
+    background-size: 70%;
+    border-radius: 5px;
+}
+.userMessage {
+    float: right;
+    position: absolute;
+    right:0;
+    bottom: 0;
+    margin-bottom: 6vh;
+    margin-right:3%;
+    border-style: solid;
+    border-color: dimgray;
+    border-width: 1px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #000;
+    background-color: #abdbe3;
+    width: fit-content;
+    padding: 1%;
+}
+.contactMessage {
+    margin-left: 2%;
+    margin-bottom: 13vh;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    float: left;
+    border-style: solid;
+    border-color: dimgray;
+    border-width: 1px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #000;
+    background-color: #fea45f;
+    width: fit-content;
+    padding: 1%;
+}
+.userTab{
+    background-color: #072d4c;
+    width: 100%;
+    height: 9%;
+}
+.userName{
+    margin: 2%;
+    color: white;
+}
+.addContact {
+    margin-top: 10px;
+    margin-right: 7px;
+    height: 30px;
+    width: 30px;
+    float:right;
+}
+
+.addContact:hover{
+    fill: #fda643;
+}
+.contacts{
+    background-color: #fba25dCA;
+    border-style:solid;
+    border-bottom-width: 1px;
+    border-left: 2px;
+    border-right:2px;
+    border-top:1px;
+}
+.contacts:hover{
+    background-color: rgb(255, 199, 146);
+}
+.dateTime{
+    margin-right: 8%;
+    margin-top: 7%;
+    font-size: 14px;
+    float: right;
+    color: white;
+}
+.contactBox {
+    height: 600px;
+    background-color: #9fadbd;
+}
+.profilePicture{
+    margin-left:1vh;
+    margin-bottom:1vh;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+.profilePictureSpecial{
+    margin-left:1vh;
+    margin-top:1vh;
+    margin-bottom:1vh;
+    border-radius: 50%;
+    max-height: 75%;
+    object-fit: cover;
+}
+.logoutbutton{
+    margin-top:1px;
+    margin-right:1px;
+    float:right
+}
+#modalInput{
+    width: 100%;
+    text-align: center;
+}
+.textOut {
+    position: absolute;
+    bottom: 0;
+    margin-left: 0.3%;
+    margin-bottom: 0.4%;
+    margin-top: 68%;
+    border-radius: 15px;
+    height: 6%;
+    width: 89%;
+    background-color: #e0e0e0;
+    font-size: 140%;
+}
+.outbtn {
+    position: absolute;
+    bottom: 0;
+    margin-left: 90%;
+    height: 6%;
+    width: 9%;
+    margin-bottom: 0.4%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+#text {
+    font-family: optima, sans-serif;
+}
+body{
+    background-image: url("../images/background.jpg");
+}
+.contactScroll{
+    overflow-y: scroll;
+    height:91%;
+    width: 99.9%;
+}
+.chat-profile-image{
+    text-align: center;
+    margin-top: 7px;
+    height: 40px;
+    width: 40px;
+}
+.chat-profile-name {
+    padding-top: 28px !important;
+}
+.chat-date {
+    padding-top: 24px !important;
+}
+.msgScroll{
+    overflow-y: scroll;
+    height: 84%;
+    background-image: url('../images/Screenshot_4.jpg');
+    background-size: 70%;
+    border-radius: 10px;
+}
+.sendLine{
+    height: 7%;
+}
+.user-tab-right-image{
+    margin-top: 7px;
+    height: 40px;
+    width: 40px;
+    margin-left: 2%;
+}
+.user-tab-left-image{
+    margin-top: 7px !important;
+    height: 40px !important;
+    width: 40px !important;
+    margin-left: 3.5%;
+}
