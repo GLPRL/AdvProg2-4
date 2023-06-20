@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.advprog2_4.Global;
 import com.example.advprog2_4.objects.Chat;
+import com.example.advprog2_4.objects.ConvertedChat;
 import com.example.advprog2_4.objects.PostChatResponse;
 import com.example.advprog2_4.objects.UsernameForPostChat;
 
@@ -37,7 +38,14 @@ public class ChatAPI {
                 String token = Global.getInstance().getToken();
                 chatsList.setValue(response.body());
                 for (int i = 0; i < response.body().size(); i++) {
-                    Global.getInstance().getChatDao().insert(response.body().get(i));
+                    String created = "";
+                    if (response.body().get(i).getLastMessage() != null){
+                        created = response.body().get(i).getLastMessage().getCreated();
+                    }
+                    ConvertedChat temp = new ConvertedChat(response.body().get(i).getId(), response.body().get(i).getUser().getDisplayName(), response.body().get(i).getUser().getProfilePic(), created);
+
+
+                    Global.getInstance().getChatDao().insert(temp);
                 }
             }
 

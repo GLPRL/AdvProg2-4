@@ -52,9 +52,9 @@ public class ContactsActivity extends AppCompatActivity {
         profilePic.setImageBitmap(Global.getInstance().getUserProfilePic());
 
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
-        chatsViewModel.getChats().observe(this, chats -> {
-            recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
-        });
+        //chatsViewModel.getChats().observe(this, chats -> {
+        //    recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
+        //});
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //generateContactList();

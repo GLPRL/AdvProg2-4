@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.advprog2_4.objects.Chat;
 import com.example.advprog2_4.objects.Contact;
+import com.example.advprog2_4.objects.ConvertedChat;
 
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
 
 
     Context context;
-    List<Chat> contacts;
+    List<ConvertedChat> contacts;
 
-    public ContactsAdapter(Context context, List<Chat> items) {
+    public ContactsAdapter(Context context, List<ConvertedChat> items) {
         this.context = context;
         this.contacts = items;
     }
@@ -35,13 +36,13 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
 
     @Override
     public void onBindViewHolder( ContactsViewHolder holder, int position) {
-        holder.displayName.setText(contacts.get(position).getUser().getDisplayName());
-        if (contacts.get(position).getLastMessage() != null) {
-            holder.date.setText(contacts.get(position).getLastMessage().getCreated());
+        holder.displayName.setText(contacts.get(position).getDisplayName());
+        if (contacts.get(position).getCreated().compareTo("") != 0) {
+            holder.date.setText(contacts.get(position).getCreated());
         } else {
             holder.date.setText("");
         }
-        byte[] imageInBase64 = Base64.decode(contacts.get(position).getUser().getProfilePic(), Base64.DEFAULT);
+        byte[] imageInBase64 = Base64.decode(contacts.get(position).getProfilePic(), Base64.DEFAULT);
         Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0 , imageInBase64.length);
         Global.getInstance().setCurrentContactImage(imageBitMap);
         holder.profilePicView.setImageBitmap(imageBitMap);
@@ -57,7 +58,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, ChatActivity.class);
                     int adapterPosition = holder.getAdapterPosition();
-                    String displayName = contacts.get(adapterPosition).getUser().getDisplayName();
+                    String displayName = contacts.get(adapterPosition).getDisplayName();
                     Global.getInstance().setCurrentChatId(contacts.get(adapterPosition).getId());
                     intent.putExtra("displayName", displayName);
                     // Pass any necessary data to the new activity
