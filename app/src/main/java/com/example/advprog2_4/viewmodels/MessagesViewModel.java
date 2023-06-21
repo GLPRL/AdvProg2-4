@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.advprog2_4.Global;
-import com.example.advprog2_4.objects.Chat;
 import com.example.advprog2_4.objects.MessageItem;
-import com.example.advprog2_4.repositories.ChatsRepository;
 import com.example.advprog2_4.repositories.MessagesRepository;
 
 import java.util.List;

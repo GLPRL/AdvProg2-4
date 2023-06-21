@@ -1,23 +1,19 @@
 package com.example.advprog2_4;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.advprog2_4.api.TokenAPI;
-import com.example.advprog2_4.api.UserAPI;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.advprog2_4.api.WebServiceAPI;
 import com.example.advprog2_4.objects.ChatContact;
-import com.example.advprog2_4.objects.User;
 import com.example.advprog2_4.objects.UserIdAndPassword;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -38,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         Global.getInstance().setToken("");
         Global.getInstance().setUsername("");
         Global.getInstance().setPassword("");
-
-        //UserAPI userAPI = new UserAPI();
-        //userAPI.get("ng");
 
         Button btnSignUp = findViewById(R.id.btnSignUp);
         Button btnLogin =findViewById(R.id.btnLogin);

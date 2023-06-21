@@ -3,9 +3,7 @@ package com.example.advprog2_4.repositories;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.advprog2_4.api.ChatAPI;
 import com.example.advprog2_4.api.MessagesAPI;
-import com.example.advprog2_4.objects.Chat;
 import com.example.advprog2_4.objects.MessageItem;
 
 import java.util.LinkedList;

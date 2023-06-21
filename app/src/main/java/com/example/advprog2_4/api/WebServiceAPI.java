@@ -11,14 +11,11 @@ import com.example.advprog2_4.objects.UserIdAndPassword;
 import com.example.advprog2_4.objects.UserRegisterObject;
 import com.example.advprog2_4.objects.UserRegisterResponse;
 import com.example.advprog2_4.objects.UsernameForPostChat;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;

@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.advprog2_4.objects.Chat;
-import com.example.advprog2_4.objects.Contact;
 import com.example.advprog2_4.objects.ConvertedChat;
 
 import java.util.List;
@@ -50,7 +48,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Change background color
                     int backgroundColor = context.getResources().getColor(R.color.dark_white);
                     v.setBackgroundColor(backgroundColor);
 

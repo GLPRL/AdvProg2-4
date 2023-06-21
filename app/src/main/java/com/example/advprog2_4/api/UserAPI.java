@@ -3,8 +3,6 @@ package com.example.advprog2_4.api;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.advprog2_4.Global;
-import com.example.advprog2_4.MyApplication;
-import com.example.advprog2_4.R;
 import com.example.advprog2_4.objects.ChatContact;
 import com.example.advprog2_4.objects.User;
 

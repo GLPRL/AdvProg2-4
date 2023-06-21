@@ -25,7 +25,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsActivity extends AppCompatActivity {
     AppDB db;
-    ChatDao chatDao;
     ContactsAdapter contactsAdapter;
 
     private ChatsViewModel chatsViewModel;
@@ -35,8 +34,7 @@ public class ContactsActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
                 .allowMainThreadQueries()
                 .build();
-
-        chatDao = db.ChatDao();
+        Global.getInstance().setChatDao(db.ChatDao());
 
         chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
         Intent intent = getIntent();
@@ -56,8 +54,8 @@ public class ContactsActivity extends AppCompatActivity {
         //});
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //generateContactList();
-        contactsAdapter = new ContactsAdapter(ContactsActivity.this, chatDao.index());
+        generateContactList();
+        contactsAdapter = new ContactsAdapter(ContactsActivity.this, Global.getInstance().getChatDao().index());
         recyclerView.setAdapter(contactsAdapter);
 
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
@@ -95,7 +93,8 @@ public class ContactsActivity extends AppCompatActivity {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 CharSequence name = "ChatApp";
                                 String desc = "New message from " + username;
-                                String channelID = String.valueOf(chatDao.index().size() - 1);
+                                String channelID = String.valueOf(Global.getInstance().getChatDao()
+                                                                                        .index().size() - 1);
 
                             }
                             //recyclerView.getAdapter().notifyDataSetChanged();
@@ -125,7 +124,7 @@ public class ContactsActivity extends AppCompatActivity {
     }
 
     public void generateContactList() {
-
+        
     }
 
     protected void onDestroy() {

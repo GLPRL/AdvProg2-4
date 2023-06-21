@@ -1,15 +1,9 @@
 package com.example.advprog2_4.api;
 
-import android.util.Log;
-
 import com.example.advprog2_4.Global;
-import com.example.advprog2_4.MyApplication;
-import com.example.advprog2_4.R;
 import com.example.advprog2_4.objects.UserIdAndPassword;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import retrofit2.Call;
 import retrofit2.Callback;

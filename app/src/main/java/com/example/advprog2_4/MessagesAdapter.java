@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.advprog2_4.R;
 import com.example.advprog2_4.objects.MessageItem;
 import java.util.List;
 

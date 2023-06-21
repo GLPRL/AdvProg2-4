@@ -78,8 +78,4 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
-    //public List<MessageItem> generateMessages() {
-
-    //}
 }
