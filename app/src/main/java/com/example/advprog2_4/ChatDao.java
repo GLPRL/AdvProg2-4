@@ -1,5 +1,6 @@
 package com.example.advprog2_4;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,7 +14,7 @@ import java.util.List;
 @Dao
 public interface ChatDao {
     @Query("SELECT * FROM convertedchat")
-    List<ConvertedChat> index();
+    LiveData<List<ConvertedChat>> index();
 
     @Query("SELECT * FROM convertedchat WHERE id = :id")
     ConvertedChat get(int id);

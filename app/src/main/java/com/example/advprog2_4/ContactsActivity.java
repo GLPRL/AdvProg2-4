@@ -28,12 +28,14 @@ public class ContactsActivity extends AppCompatActivity {
     ContactsAdapter contactsAdapter;
 
     private ChatsViewModel chatsViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
                 .allowMainThreadQueries()
                 .build();
+
+
         Global.getInstance().setChatDao(db.ChatDao());
 
         chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
@@ -49,14 +51,14 @@ public class ContactsActivity extends AppCompatActivity {
         profilePic.setImageBitmap(Global.getInstance().getUserProfilePic());
 
         RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
-        //chatsViewModel.getChats().observe(this, chats -> {
-        //    recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
-        //});
+        chatsViewModel.getChats().observe(this, chats -> {
+            recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        generateContactList();
-        contactsAdapter = new ContactsAdapter(ContactsActivity.this, Global.getInstance().getChatDao().index());
-        recyclerView.setAdapter(contactsAdapter);
+        //generateContactList();
+        //contactsAdapter = new ContactsAdapter(ContactsActivity.this, Global.getInstance().getChatDao().index());
+        //recyclerView.setAdapter(contactsAdapter);
 
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
 
@@ -86,15 +88,15 @@ public class ContactsActivity extends AppCompatActivity {
                         if (!username.isEmpty()) {
                             ChatAPI api = new ChatAPI();
                             api.postChat(username);
-                            contactsAdapter = new ContactsAdapter(ContactsActivity.this,
-                                    Global.getInstance().getChatDao().index());
+                            //contactsAdapter = new ContactsAdapter(ContactsActivity.this,
+                            //        Global.getInstance().getChatDao().index());
                             recyclerView.setAdapter(contactsAdapter);
                             //Create new channel on adding new contact.
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 CharSequence name = "ChatApp";
                                 String desc = "New message from " + username;
-                                String channelID = String.valueOf(Global.getInstance().getChatDao()
-                                                                                        .index().size() - 1);
+                                //String channelID = String.valueOf(Global.getInstance().getChatDao()
+                                //                                                        .index().size() - 1);
 
                             }
                             //recyclerView.getAdapter().notifyDataSetChanged();
@@ -124,7 +126,7 @@ public class ContactsActivity extends AppCompatActivity {
     }
 
     public void generateContactList() {
-        
+
     }
 
     protected void onDestroy() {

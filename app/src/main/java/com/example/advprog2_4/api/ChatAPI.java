@@ -1,5 +1,6 @@
 package com.example.advprog2_4.api;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.advprog2_4.Global;
@@ -47,6 +48,7 @@ public class ChatAPI {
 
                     Global.getInstance().getChatDao().insert(temp);
                 }
+                LiveData<List<ConvertedChat>> l = Global.getInstance().getChatDao().index();
             }
 
             @Override
