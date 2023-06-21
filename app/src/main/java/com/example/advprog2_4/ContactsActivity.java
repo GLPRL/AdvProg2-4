@@ -56,7 +56,6 @@ public class ContactsActivity extends AppCompatActivity {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //generateContactList();
         //contactsAdapter = new ContactsAdapter(ContactsActivity.this, Global.getInstance().getChatDao().index());
         //recyclerView.setAdapter(contactsAdapter);
 
@@ -90,7 +89,7 @@ public class ContactsActivity extends AppCompatActivity {
                             api.postChat(username);
                             //contactsAdapter = new ContactsAdapter(ContactsActivity.this,
                             //        Global.getInstance().getChatDao().index());
-                            recyclerView.setAdapter(contactsAdapter);
+                            //recyclerView.setAdapter(contactsAdapter);
                             //Create new channel on adding new contact.
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 CharSequence name = "ChatApp";
@@ -123,10 +122,6 @@ public class ContactsActivity extends AppCompatActivity {
         //for (int i = 0; i < contactList.size(); i++) {
         //    FirebaseMessaging.getInstance().subscribeToTopic(contactList.get(i).getChatID());
         //}
-    }
-
-    public void generateContactList() {
-
     }
 
     protected void onDestroy() {
