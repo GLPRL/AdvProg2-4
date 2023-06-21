@@ -28,7 +28,6 @@ public class ContactsActivity extends AppCompatActivity {
     ChatDao chatDao;
     ContactsAdapter contactsAdapter;
 
-    //List<Contact> contactList;
     private ChatsViewModel chatsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,7 @@ public class ContactsActivity extends AppCompatActivity {
         //generateContactList();
         contactsAdapter = new ContactsAdapter(ContactsActivity.this, chatDao.index());
         recyclerView.setAdapter(contactsAdapter);
-        // TODO insert the contacts from the server get to dao
+
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
