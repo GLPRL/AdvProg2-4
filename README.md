@@ -23,9 +23,11 @@ When receiving new message from a contact, you'll also be notified of the new me
 Clone the repository.
 Start the server by 
 
-``` cd web
+```
+cd web
 cd server
 node app.js
+```
 
 For starting the application, start Android Studio. You can start the emulator in the program,
 or start in the phone.
