@@ -31,6 +31,7 @@ public class ContactsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        boolean shouldScroll = false;
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
                 .allowMainThreadQueries()
                 .build();
@@ -55,6 +56,10 @@ public class ContactsActivity extends AppCompatActivity {
             recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.post(() -> {
+            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+        });
+
 
         //contactsAdapter = new ContactsAdapter(ContactsActivity.this, Global.getInstance().getChatDao().index());
         //recyclerView.setAdapter(contactsAdapter);
@@ -98,9 +103,12 @@ public class ContactsActivity extends AppCompatActivity {
                                 //                                                        .index().size() - 1);
 
                             //}
+
                             recyclerView.getAdapter().notifyDataSetChanged();
+                            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
                             //recreate();
                         }
+
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
