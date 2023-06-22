@@ -1,6 +1,5 @@
 package com.example.advprog2_4.api;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.advprog2_4.Global;
@@ -33,7 +32,7 @@ public class ChatAPI {
 
     /**
      * Get all chats from server
-     * @param chatsList
+     * @param chatsList chatslist
      */
     public void getAll(MutableLiveData<List<Chat>> chatsList) {
         String author = "Bearer " + Global.getInstance().getToken();
@@ -53,7 +52,6 @@ public class ChatAPI {
                     //Subscribe to topics. Each topic is a chatID
                     String s = String.valueOf(response.body().get(i).getId());
                     FirebaseMessaging.getInstance().subscribeToTopic(s);
-
                 }
             }
 

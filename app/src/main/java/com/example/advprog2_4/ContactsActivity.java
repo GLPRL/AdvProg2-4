@@ -31,9 +31,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsActivity extends AppCompatActivity {
     AppDB db;
+    String FBToken = "";
     ContactsAdapter contactsAdapter;
     private ChatsViewModel chatsViewModel;
-    String s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -119,7 +119,8 @@ public class ContactsActivity extends AppCompatActivity {
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             Global.getInstance().setFBToken(task.getResult());
-            //setFBToken to server
+            FBToken = task.getResult();
+            //TODO send FBToken to server
         });
     }
 

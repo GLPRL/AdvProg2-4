@@ -15,19 +15,19 @@ import androidx.core.content.ContextCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.Map;
-
 
 public class MessageService extends FirebaseMessagingService {
     NotificationManager notificationManager;
     int importance = NotificationManager.IMPORTANCE_DEFAULT;
     String id;
     String SenderName;
+
     public MessageService() {
     }
 
     /**
      * If application has notifications permissions, then display the notification.
+     *
      * @param message Remote message that has been received.
      */
     @Override
@@ -36,10 +36,9 @@ public class MessageService extends FirebaseMessagingService {
             return;
         }
         if (message.getNotification() != null) {
-            Map<String, String> map = message.getData();
-            id = map.get("id");
+            id = message.getNotification().getBody();
             createNotificationChannel();
-            SenderName = map.get("name");
+            SenderName = message.getNotification().getTitle();
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, id)
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentTitle("ChatApp")
@@ -57,13 +56,13 @@ public class MessageService extends FirebaseMessagingService {
      */
     public void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                CharSequence name = getString(R.string.channel_name);
-                String desc = getString(R.string.channel_name);
-                NotificationChannel channel = new NotificationChannel(id, name, importance);
-                channel.setDescription(desc);
+            CharSequence name = getString(R.string.channel_name);
+            String desc = getString(R.string.channel_name);
+            NotificationChannel channel = new NotificationChannel(id, name, importance);
+            channel.setDescription(desc);
 
-                notificationManager = getSystemService(NotificationManager.class);
-                notificationManager.createNotificationChannel(channel);
-            }
+            notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
+    }
 }
