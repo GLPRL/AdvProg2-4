@@ -105,7 +105,7 @@ public class ContactsActivity extends AppCompatActivity {
                             //}
 
                             recyclerView.getAdapter().notifyDataSetChanged();
-                            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+                            //recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
                             //recreate();
                         }
 
