@@ -79,7 +79,12 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
 
     @Override
     public int getItemCount() {
-        return contacts.size();
-
+        int size;
+        try {
+            size = contacts.size();
+        } catch (Exception e) {
+            return 0;
+        }
+        return size;
     }
 }

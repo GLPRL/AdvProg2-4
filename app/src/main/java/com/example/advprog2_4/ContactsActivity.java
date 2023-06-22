@@ -1,8 +1,11 @@
 package com.example.advprog2_4;
 
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +24,7 @@ import androidx.room.Room;
 import com.example.advprog2_4.api.ChatAPI;
 import com.example.advprog2_4.viewmodels.ChatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,16 +32,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactsActivity extends AppCompatActivity {
     AppDB db;
     ContactsAdapter contactsAdapter;
-
     private ChatsViewModel chatsViewModel;
-
+    String s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        boolean shouldScroll = false;
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
-                .allowMainThreadQueries()
-                .build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions(this, new String[]{POST_NOTIFICATIONS}, 1);
+            }
+        }
 
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB").allowMainThreadQueries().build();
 
         Global.getInstance().setChatDao(db.ChatDao());
 
@@ -57,12 +64,15 @@ public class ContactsActivity extends AppCompatActivity {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.post(() -> {
-            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+            if (recyclerView.getAdapter() == null) {
+                //do nothing
+            } else {
+                int count = recyclerView.getAdapter().getItemCount();
+                if (count != 0) {
+                    recyclerView.scrollToPosition(count - 1);
+                }
+            }
         });
-
-
-        //contactsAdapter = new ContactsAdapter(ContactsActivity.this, Global.getInstance().getChatDao().index());
-        //recyclerView.setAdapter(contactsAdapter);
 
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
 
@@ -92,23 +102,9 @@ public class ContactsActivity extends AppCompatActivity {
                         if (!usernameToAdd.isEmpty()) {
                             ChatAPI api = new ChatAPI();
                             api.postChat(usernameToAdd);
-                            //contactsAdapter = new ContactsAdapter(ContactsActivity.this,
-                            //        Global.getInstance().getChatDao().index());
-                            //recyclerView.setAdapter(contactsAdapter);
-                            //Create new channel on adding new contact.
-                            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            //    CharSequence name = "ChatApp";
-                            //    String desc = "New message from " + username;
-                                //String channelID = String.valueOf(Global.getInstance().getChatDao()
-                                //                                                        .index().size() - 1);
-
-                            //}
-
                             recyclerView.getAdapter().notifyDataSetChanged();
-                            //recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
-                            //recreate();
-                        }
 
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -119,16 +115,12 @@ public class ContactsActivity extends AppCompatActivity {
                 });
                 builder.show();
             }
-
         });
-        //FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
-        //    FBToken = task.getResult();
-        //});
 
-        //Each topic is a chatID
-        //for (int i = 0; i < contactList.size(); i++) {
-        //    FirebaseMessaging.getInstance().subscribeToTopic(contactList.get(i).getChatID());
-        //}
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            Global.getInstance().setFBToken(task.getResult());
+            //setFBToken to server
+        });
     }
 
     protected void onDestroy() {

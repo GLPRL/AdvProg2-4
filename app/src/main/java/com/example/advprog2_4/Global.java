@@ -11,6 +11,15 @@ public class Global {
     private Bitmap userProfilePic;
     private int currentChatId;
     private ChatDao chatDao;
+    private String FBToken = "";
+
+    public String getFBToken() {
+        return FBToken;
+    }
+
+    public void setFBToken(String FBToken) {
+        this.FBToken = FBToken;
+    }
 
     public ChatDao getChatDao() {
         return chatDao;

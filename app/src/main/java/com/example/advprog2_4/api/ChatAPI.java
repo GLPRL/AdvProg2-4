@@ -8,6 +8,7 @@ import com.example.advprog2_4.objects.Chat;
 import com.example.advprog2_4.objects.ConvertedChat;
 import com.example.advprog2_4.objects.PostChatResponse;
 import com.example.advprog2_4.objects.UsernameForPostChat;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
 
@@ -30,6 +31,10 @@ public class ChatAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
+    /**
+     * Get all chats from server
+     * @param chatsList
+     */
     public void getAll(MutableLiveData<List<Chat>> chatsList) {
         String author = "Bearer " + Global.getInstance().getToken();
         Call<List<Chat>> call = webServiceAPI.getAllChats(author, "text/plain");
@@ -44,11 +49,12 @@ public class ChatAPI {
                         created = response.body().get(i).getLastMessage().getCreated();
                     }
                     ConvertedChat temp = new ConvertedChat(response.body().get(i).getId(), response.body().get(i).getUser().getDisplayName(), response.body().get(i).getUser().getProfilePic(), created);
-
-
                     Global.getInstance().getChatDao().insert(temp);
+                    //Subscribe to topics. Each topic is a chatID
+                    String s = String.valueOf(response.body().get(i).getId());
+                    FirebaseMessaging.getInstance().subscribeToTopic(s);
+
                 }
-                LiveData<List<ConvertedChat>> l = Global.getInstance().getChatDao().index();
             }
 
             @Override
@@ -57,6 +63,9 @@ public class ChatAPI {
         });
     }
 
+    /**
+     * Create new chat
+     */
     public void postChat(String contactUsername){
         String author = "Bearer " + Global.getInstance().getToken();
         UsernameForPostChat user = new UsernameForPostChat(contactUsername);
@@ -70,6 +79,8 @@ public class ChatAPI {
                     PostChatResponse chat = response.body();
                     ConvertedChat temp = new ConvertedChat(chat.getId(), chat.getContact().getDisplayName(), chat.getContact().getProfilePic(), "");
                     Global.getInstance().getChatDao().insert(temp);
+                    String s = String.valueOf(chat.getId());
+                    FirebaseMessaging.getInstance().subscribeToTopic(s);
                 }
             }
 
@@ -77,9 +88,5 @@ public class ChatAPI {
             public void onFailure(Call<PostChatResponse> call, Throwable t) {
             }
         });
-
-
     }
-
-
 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.firebase.messaging.RemoteMessage;
 
 import com.example.advprog2_4.api.MessagesAPI;
 import com.example.advprog2_4.objects.MessageItem;
@@ -17,6 +18,8 @@ import com.example.advprog2_4.objects.PostMessageRequest;
 import com.example.advprog2_4.viewmodels.MessagesViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 
 import java.util.LinkedList;
 import java.util.List;
