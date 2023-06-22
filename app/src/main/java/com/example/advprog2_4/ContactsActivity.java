@@ -83,24 +83,23 @@ public class ContactsActivity extends AppCompatActivity {
                 builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //String username = input.getText().toString().trim();
-                        if (!username.isEmpty()) {
+                        String usernameToAdd = input.getText().toString().trim();
+                        if (!usernameToAdd.isEmpty()) {
                             ChatAPI api = new ChatAPI();
-                            api.postChat(username);
+                            api.postChat(usernameToAdd);
                             //contactsAdapter = new ContactsAdapter(ContactsActivity.this,
                             //        Global.getInstance().getChatDao().index());
                             //recyclerView.setAdapter(contactsAdapter);
                             //Create new channel on adding new contact.
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                CharSequence name = "ChatApp";
-                                String desc = "New message from " + username;
+                            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            //    CharSequence name = "ChatApp";
+                            //    String desc = "New message from " + username;
                                 //String channelID = String.valueOf(Global.getInstance().getChatDao()
                                 //                                                        .index().size() - 1);
 
-                            }
-                            //recyclerView.getAdapter().notifyDataSetChanged();
+                            //}
+                            recyclerView.getAdapter().notifyDataSetChanged();
                             //recreate();
-
                         }
                     }
                 });

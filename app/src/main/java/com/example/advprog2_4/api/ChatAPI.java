@@ -65,8 +65,12 @@ public class ChatAPI {
         call.enqueue(new Callback<PostChatResponse>() {
             @Override
             public void onResponse(Call<PostChatResponse> call, Response<PostChatResponse> response) {
-                String token = Global.getInstance().getToken();
-                PostChatResponse chat = response.body();
+                if (response.code() == 200) {
+                    String token = Global.getInstance().getToken();
+                    PostChatResponse chat = response.body();
+                    ConvertedChat temp = new ConvertedChat(chat.getId(), chat.getContact().getDisplayName(), chat.getContact().getProfilePic(), "");
+                    Global.getInstance().getChatDao().insert(temp);
+                }
             }
 
             @Override
