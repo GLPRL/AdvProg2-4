@@ -25,7 +25,7 @@ Start the server by
 
 ``` cd web
 cd server
-node app.js ```
+node app.js
 
 For starting the application, start Android Studio. You can start the emulator in the program,
 or start in the phone.
