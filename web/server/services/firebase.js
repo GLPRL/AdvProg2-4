@@ -42,11 +42,12 @@ const createToken = async (user) => {
 const updateToken = async(user, newToken) => {
     const firebaseCollection = mongoose.model("fbtokens", fbToken.schema, "fbtokens");
     const update = {token : newToken};
-    const userTokenUpdate = await firebaseCollection.findByIdAndUpdate({username: user}, update, {new: true});
+    const userTokenUpdate = await firebaseCollection.findOneAndUpdate({username: user}, update, {new: true});
     return;
 }
 
 module.exports = {
                     createToken,
-                    updateToken                    
+                    updateToken,
+                    sendMessage                    
                 };

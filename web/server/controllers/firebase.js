@@ -10,6 +10,7 @@ const updateToken = async (req,res) => {
      }
      const token = req.headers.authorization.split(' ')[1]
      const validity =  await tokenVerifer.isValidTokenWithDetails(token)
+     //console.log("am here");
      if(!validity){
          res.status(401).send();
      }
@@ -17,7 +18,7 @@ const updateToken = async (req,res) => {
      const newToken = req.body.fbToken;
      const username = validity.username
      const serviceReq = await fbTokenService.updateToken(username,newToken);
-     return res.status(200);
+     return res.status(200).json(serviceReq);
 }
 
 module.exports = {

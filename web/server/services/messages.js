@@ -3,6 +3,7 @@ const Message = require('../models/messages');
 const User = require('../models/users');
 const Chat = require('../models/chats');
 const ChatCol = require('../models/chatCol');
+const fbService = require('./firebase');
 
 const createMessage= async (chatId, currentUser, messageContent, messageId) =>{
     const chatsCollection = mongoose.model('chatcols', ChatCol.schema, 'chatcols');
@@ -69,6 +70,7 @@ const updateLastMessages = async (msgData) => {
     const contactUsername = chatDocInUser.user.username
     const contactChatCollection = mongoose.model(contactUsername, Chat.schema, contactUsername);
     const contactDocInUser = await contactChatCollection.findOneAndUpdate({_id:msgData.idOfChat}, {lastMessage:lastM}, {new: true})
+    const sendNotif = fbService.sendMessage(user1, contactUsername);
 }
 
 

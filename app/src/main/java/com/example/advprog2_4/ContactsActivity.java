@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.advprog2_4.api.ChatAPI;
+import com.example.advprog2_4.api.FirebaseTokenAPI;
 import com.example.advprog2_4.viewmodels.ChatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -120,6 +121,8 @@ public class ContactsActivity extends AppCompatActivity {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             Global.getInstance().setFBToken(task.getResult());
             FBToken = task.getResult();
+            FirebaseTokenAPI fbTokenAPI = new FirebaseTokenAPI();
+            fbTokenAPI.PostToken(Global.getInstance().getFBToken());
             //TODO send FBToken to server
         });
     }
