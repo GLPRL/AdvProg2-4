@@ -7,12 +7,12 @@ const sendMessage = async (srcUser, destUser) => {
     //fbtoken = ???;
     //TODO
     const firebaseCollection = mongoose.model("fbtokens", fbToken.schema, "fbtokens");
-    const user = await firebaseCollection.findOne({username: destUser}).exec();
+    const user = await firebaseCollection.findOne({username: destUser}).exec();     //find token of the destination user
     if (user == null || user.token == null) {           //user not found or not android user
         return
     }
 
-    const message = {
+    const message = {               //build message to send
         data: {
             source: srcUser
         },
@@ -20,7 +20,7 @@ const sendMessage = async (srcUser, destUser) => {
     };
 
 
-    getMessaging().send(message)
+    getMessaging().send(message)                //send message
         .then((response) => {
             console.log("sent message");
         })
