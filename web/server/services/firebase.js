@@ -15,8 +15,8 @@ const sendMessage = async (srcUser, destUser) => {
     }
 
     const message = {               //build message to send
-        data: {
-            source: srcUser
+        notification: {
+            title: srcUser
         },
         token: user.token
     };
@@ -24,6 +24,8 @@ const sendMessage = async (srcUser, destUser) => {
 
     getMessaging().send(message)                //send message
         .then((response) => {
+            console.log(user.token);
+            console.log(response);
             console.log("sent message");
         })
         .catch((error) => {

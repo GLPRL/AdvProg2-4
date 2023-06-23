@@ -19,7 +19,6 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MessageService extends FirebaseMessagingService {
     NotificationManager notificationManager;
     int importance = NotificationManager.IMPORTANCE_DEFAULT;
-    String id;
     String SenderName;
 
     public MessageService() {
@@ -36,10 +35,9 @@ public class MessageService extends FirebaseMessagingService {
             return;
         }
         if (message.getNotification() != null) {
-            id = message.getNotification().getBody();
             createNotificationChannel();
             SenderName = message.getNotification().getTitle();
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, id)
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentTitle("ChatApp")
                     .setContentText("Message received from " + SenderName)
@@ -47,7 +45,7 @@ public class MessageService extends FirebaseMessagingService {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            notificationManager.notify(Integer.parseInt(id), builder.build());
+            notificationManager.notify(1, builder.build());
         }
     }
 
@@ -58,7 +56,7 @@ public class MessageService extends FirebaseMessagingService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
             String desc = getString(R.string.channel_name);
-            NotificationChannel channel = new NotificationChannel(id, name, importance);
+            NotificationChannel channel = new NotificationChannel("1", name, importance);
             channel.setDescription(desc);
 
             notificationManager = getSystemService(NotificationManager.class);
