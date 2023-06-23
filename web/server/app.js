@@ -7,10 +7,14 @@ const cors = require('cors');
 const tokenService = require('./services/token');
 const idService = require('./services/ids');
 const chatService = require('./services/chats');
-const admin = require("firebase-admin");
-const {initializeApp} = require("firebase-admin/app");
 
-const FBapp = initializeApp();
+var admin = require("firebase-admin")
+var serviceAccount = require("./advprog2-4-firebase-adminsdk-qf67c-7f95530ab8.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
 const express = require("express");
 const app = express();
 const http = require('http');
