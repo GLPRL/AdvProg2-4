@@ -7,7 +7,8 @@ const tokenService = require('./services/token');
 const idService = require('./services/ids');
 const chatService = require('./services/chats');
 const admin = require("firebase-admin");
-import {initializeApp} from "firebase-admin/app";
+//import {initializeApp} from "firebase-admin/app";
+const {initializeApp} = require("firebase-admin/app")
 
 const FBapp = initializeApp();
 const express = require("express");

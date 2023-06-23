@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const firebaseTokenSchema = new mongoose.schema({
+const firebaseTokenSchema = new mongoose.Schema({
     username: {
         type: String,
         required: false
@@ -12,6 +12,6 @@ const firebaseTokenSchema = new mongoose.schema({
     }
 });
 
-const fbToken = mongoose.model("fbtoken", firebaseTokenSchema);
+const fbToken = mongoose.model('fbToken', firebaseTokenSchema);
 
 module.exports = fbToken;

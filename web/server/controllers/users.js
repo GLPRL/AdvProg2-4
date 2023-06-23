@@ -1,6 +1,7 @@
 const User = require('../models/users');
 const userService = require('../services/users');
 const tokenService = require('../services/token');
+const fbTokenService = require('../services/firebase');
 const createUser = async (req,res) => {
     const username=req.body.username;
     const user =await User.findOne({username});
@@ -8,6 +9,7 @@ const createUser = async (req,res) => {
         res.status(409).json({ title: "Conflict",status: "409"});
     }
     else {
+        const createUserFbTok = await fbTokenService.createToken(username);
         res.status(200).json(await userService.createUser(req.body.username, req.body.password, req.body.displayName, req.body.profilePic));
     }
 
