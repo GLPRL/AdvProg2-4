@@ -2,12 +2,8 @@ const mongoose = require('mongoose');
 const fbToken = require('../models/firebase');
 const {getMessaging} = require("firebase-admin/messaging");
 
-
-
 const sendMessage = async (srcUser, destUser) => {
-    //Need to iterate over users, grab the FB token from a field, build a message with the sender's name.
-    //fbtoken = ???;
-    //TODO
+
     const firebaseCollection = mongoose.model("fbtokens", fbToken.schema, "fbtokens");
     const user = await firebaseCollection.findOne({username: destUser}).exec();     //find token of the destination user
     if (user.token == "") {           //user not found or not android user
@@ -24,9 +20,7 @@ const sendMessage = async (srcUser, destUser) => {
 
     getMessaging().send(message)                //send message
         .then((response) => {
-            console.log(user.token);
-            console.log(response);
-            console.log("sent message");
+            //do nothing
         })
         .catch((error) => {
             console.log("error sending ", error);
@@ -41,15 +35,15 @@ const createToken = async (user) => {
     return await doc.save();
 }
 
-const updateToken = async(user, newToken) => {
+const updateToken = async (user, newToken) => {
     const firebaseCollection = mongoose.model("fbtokens", fbToken.schema, "fbtokens");
-    const update = {token : newToken};
+    const update = {token: newToken};
     const userTokenUpdate = await firebaseCollection.findOneAndUpdate({username: user}, update, {new: true});
     return;
 }
 
 module.exports = {
-                    createToken,
-                    updateToken,
-                    sendMessage                    
-                };
+    createToken,
+    updateToken,
+    sendMessage
+};

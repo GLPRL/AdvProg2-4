@@ -2,18 +2,16 @@ const mongoose = require('mongoose');
 const Id = require('../models/ids');
 
 
-
-
 const checkIdCollection = async () => {
     const ids = mongoose.model('idCollection', Id.schema, 'idCollection');
     const isIdCollectionExists = await ids.exists();
-    
+
     if (isIdCollectionExists) {
     } else {
         const temp2 = await messageIdCreate();
         const temp1 = await chatIdCreate();
-        
-        
+
+
     }
 }
 
@@ -46,4 +44,4 @@ const nextId = async (idName) => {
 module.exports = {
     checkIdCollection,
     nextId
-    };
+};

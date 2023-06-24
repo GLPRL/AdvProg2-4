@@ -6,7 +6,6 @@ const fbTokenRouter = require('./routes/firebase');
 const cors = require('cors');
 const tokenService = require('./services/token');
 const idService = require('./services/ids');
-const chatService = require('./services/chats');
 
 var admin = require("firebase-admin")
 var serviceAccount = require("./advprog2-4-firebase-adminsdk-qf67c-7f95530ab8.json");
@@ -19,7 +18,7 @@ const express = require("express");
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-const { Server } = require("socket.io");
+const {Server} = require("socket.io");
 const {join} = require("path");
 const io = new Server(server, {
     cors: {
@@ -30,10 +29,10 @@ const io = new Server(server, {
 app.use(express.static('public'))
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
-app.use('/api/Users',usersRouter);
-app.use('/api/Chats',chatsRouter);
+app.use('/api/Users', usersRouter);
+app.use('/api/Chats', chatsRouter);
 app.use('/api/fbToken', fbTokenRouter);
 
 mongoose.connect('mongodb://127.0.0.1:27017/chatApp', {
@@ -46,7 +45,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/chatApp', {
         //
     });
 
-app.post('/api/Tokens',tokenService.getToken);
+app.post('/api/Tokens', tokenService.getToken);
 app.use(express.static(join(__dirname, "..", "build")));
 
 // checking if idCollection exists, if not, creates it.

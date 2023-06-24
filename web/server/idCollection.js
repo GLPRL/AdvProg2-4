@@ -3,7 +3,7 @@ const idCollection = mongoose.model('ids')
 
 async function checkIdCollection() {
     const isIdCollectionExists = await idCollection.exists();
-    
+
     if (isIdCollectionExists) {
         //
     } else {

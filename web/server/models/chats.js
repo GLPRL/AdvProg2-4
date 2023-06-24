@@ -8,11 +8,11 @@ const lastMsgSchema = new mongoose.Schema({
     },
     created: {
         type: String,
-        required:false
+        required: false
     },
     content: {
         type: String,
-        required:false
+        required: false
     }
 })
 
@@ -36,7 +36,7 @@ const chatSchema = new mongoose.Schema({
         }
     },
     lastMessage: {
-        type:lastMsgSchema,
+        type: lastMsgSchema,
         default: null,
         required: false
     },
