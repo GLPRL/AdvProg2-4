@@ -7,10 +7,11 @@ An implemenation of a chat application, connecting to SWAGGER DB, written in Jav
 
 The app is composed of 5 intents/screens:
 1) Login Page
-2) Settings: Change theme (dark/light modes) and connection settings
-3) Registration Page
-4) Chats Page - Displaying your chats with other users
-5) Chat Page - Your messages with a contact.
+2) Settings: Change theme (dark/light modes) and connection settings.
+   <sub>Note that a correct address must begin with "http://", it will be checked.</sub> 
+4) Registration Page
+5) Chats Page - Displaying your chats with other users
+6) Chat Page - Your messages with a contact.
 
 We implementated a local DB using Dao and Room, to minimize the requests to the DB server.
 
