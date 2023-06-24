@@ -107,6 +107,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         Global.getInstance().getSocket().on("receiveMessage", args -> {
             Looper.prepare();
+            //TODO: refresh when received.
         });
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
 
