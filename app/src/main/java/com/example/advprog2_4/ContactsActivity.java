@@ -113,7 +113,6 @@ public class ContactsActivity extends AppCompatActivity {
         });
         Global.getInstance().getSocket().on("receiveMessage", args -> {
             Looper.prepare();
-            Toast.makeText(ContactsActivity.this, "New message", Toast.LENGTH_SHORT).show();
         });
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
 
@@ -127,6 +126,8 @@ public class ContactsActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         db.clearAllTables();
+                        Global.getInstance().getSocket().close();
+                        FirebaseMessaging.getInstance().deleteToken();
                     }
                 };
                 new Thread(r).start();
@@ -150,7 +151,6 @@ public class ContactsActivity extends AppCompatActivity {
                             ChatAPI api = new ChatAPI();
                             api.postChat(usernameToAdd);
                             recyclerView.getAdapter().notifyDataSetChanged();
-
                         }
                     }
                 });
@@ -173,7 +173,7 @@ public class ContactsActivity extends AppCompatActivity {
 
     protected void onDestroy() {
         super.onDestroy();
-        Global.getInstance().getSocket().disconnect();
+        Global.getInstance().getSocket().close();
         db.clearAllTables();
     }
 }
