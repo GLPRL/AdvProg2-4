@@ -42,8 +42,6 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     };
                     new Thread(r).start();
-                    //global.getInstance().setServerAddress(addr);
-                    //Toast.makeText(SettingsActivity.this, "Server address set successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SettingsActivity.this, "Failed setting server address", Toast.LENGTH_SHORT).show();
                 }
