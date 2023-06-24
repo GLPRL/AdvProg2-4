@@ -150,7 +150,6 @@ public class ContactsActivity extends AppCompatActivity {
             FBToken = task.getResult();
             FirebaseTokenAPI fbTokenAPI = new FirebaseTokenAPI();
             fbTokenAPI.PostToken(Global.getInstance().getFBToken());
-            //TODO send FBToken to server
         });
     }
 
