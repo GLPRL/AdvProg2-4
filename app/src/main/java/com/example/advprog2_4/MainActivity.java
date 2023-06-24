@@ -36,18 +36,18 @@ public class MainActivity extends AppCompatActivity {
         Global.getInstance().setPassword("");
 
         Button btnSignUp = findViewById(R.id.btnSignUp);
-        Button btnLogin =findViewById(R.id.btnLogin);
+        Button btnLogin = findViewById(R.id.btnLogin);
         EditText etUsername = findViewById(R.id.etUsernameLogin);
         EditText etPassword = findViewById(R.id.etPasswordLogin);
         FloatingActionButton btnSettings = findViewById(R.id.btnSettings);
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intentSettings = new Intent(MainActivity.this,SettingsActivity.class);
-            startActivity(intentSettings);
+                Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
             }
         });
-        btnLogin.setOnClickListener(new View.OnClickListener(){
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // http://10.0.2.2:5000
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     UserIdAndPassword userData = new UserIdAndPassword(username, password);
 
 
-                    Call<String> call = webServiceAPI.postToken("application/json", "*/*" , userData);
+                    Call<String> call = webServiceAPI.postToken("application/json", "*/*", userData);
                     call.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
@@ -100,14 +100,14 @@ public class MainActivity extends AppCompatActivity {
                                 webServiceAPI = retrofit.create(WebServiceAPI.class);
                                 String userToken = "Bearer " + Global.getInstance().getToken();
 
-                                Call<ChatContact> call2 = webServiceAPI.getUser( userToken,"text/plain",Global.getInstance().getUsername());
+                                Call<ChatContact> call2 = webServiceAPI.getUser(userToken, "text/plain", Global.getInstance().getUsername());
                                 call2.enqueue(new Callback<ChatContact>() {
                                     @Override
                                     public void onResponse(Call<ChatContact> call, Response<ChatContact> response) {
                                         ChatContact userDetails = response.body();
                                         if (response.code() == 200) {
                                             byte[] imageInBase64 = Base64.decode(userDetails.getProfilePic(), Base64.DEFAULT);
-                                            Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0 , imageInBase64.length);
+                                            Bitmap imageBitMap = BitmapFactory.decodeByteArray(imageInBase64, 0, imageInBase64.length);
                                             Global.getInstance().setUserProfilePic(imageBitMap);
                                             Global.getInstance().setUserDisplayName(userDetails.getDisplayName());
                                             intent.putExtra("username", username);
@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         }
+
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
                         }
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     protected void onResume() {
         EditText etUsername = findViewById(R.id.etUsernameLogin);

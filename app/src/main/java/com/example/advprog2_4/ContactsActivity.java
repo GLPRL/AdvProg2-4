@@ -35,11 +35,17 @@ public class ContactsActivity extends AppCompatActivity {
     String FBToken = "";
     ContactsAdapter contactsAdapter;
     private ChatsViewModel chatsViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
                 ActivityCompat.requestPermissions(this, new String[]{POST_NOTIFICATIONS}, 1);
+            }
+        }
+        if(db != null) {
+            if (db.isOpen()) {
+                new Thread(() -> db.clearAllTables());
             }
         }
 
@@ -83,7 +89,13 @@ public class ContactsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ContactsActivity.this, MainActivity.class);
-                db.clearAllTables();
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        db.clearAllTables();
+                    }
+                };
+                new Thread(r).start();
                 startActivity(intent);
             }
         });
