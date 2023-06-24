@@ -62,6 +62,7 @@ public class ContactsActivity extends AppCompatActivity {
         };
         Thread t = new Thread(start);
         t.start();
+
         try {
             t.join();
             chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);

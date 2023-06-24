@@ -77,6 +77,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
+
         FloatingActionButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
