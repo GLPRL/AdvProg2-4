@@ -2,6 +2,8 @@ package com.example.advprog2_4;
 
 import android.graphics.Bitmap;
 
+import io.socket.client.Socket;
+
 public class Global {
     private static Global instance;
     private String serverAddress = "";
@@ -12,6 +14,15 @@ public class Global {
     private int currentChatId;
     private ChatDao chatDao;
     private String FBToken = "";
+    private Socket socket;
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
 
     public String getFBToken() {
         return FBToken;

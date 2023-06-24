@@ -52,7 +52,6 @@ public class ContactsActivity extends AppCompatActivity {
             public void run() {
                 db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB").allowMainThreadQueries().build();
                 Global.getInstance().setChatDao(db.ChatDao());
-                //chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
             }
         };
         Thread t = new Thread(start);
@@ -63,10 +62,6 @@ public class ContactsActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        //db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB").allowMainThreadQueries().build();
-        //Global.getInstance().setChatDao(db.ChatDao());
-        //chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
