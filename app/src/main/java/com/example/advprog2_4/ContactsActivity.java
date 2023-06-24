@@ -43,17 +43,32 @@ public class ContactsActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{POST_NOTIFICATIONS}, 1);
             }
         }
-        if(db != null) {
+        if (db != null) {
             if (db.isOpen()) {
                 new Thread(() -> db.clearAllTables());
             }
         }
+        Runnable start = new Runnable() {
+            @Override
+            public void run() {
+                db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB").allowMainThreadQueries().build();
+                Global.getInstance().setChatDao(db.ChatDao());
+                //chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
+            }
+        };
+        Thread t = new Thread(start);
+        t.start();
+        try {
+            t.join();
+            chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB").allowMainThreadQueries().build();
+        //db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB").allowMainThreadQueries().build();
+        //Global.getInstance().setChatDao(db.ChatDao());
+        //chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
 
-        Global.getInstance().setChatDao(db.ChatDao());
-
-        chatsViewModel = new ViewModelProvider(this).get(ChatsViewModel.class);
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
