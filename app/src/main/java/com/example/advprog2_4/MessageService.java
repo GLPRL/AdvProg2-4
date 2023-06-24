@@ -26,7 +26,6 @@ public class MessageService extends FirebaseMessagingService {
 
     /**
      * If application has notifications permissions, then display the notification.
-     *
      * @param message Remote message that has been received.
      */
     @Override
