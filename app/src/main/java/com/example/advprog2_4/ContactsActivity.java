@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -27,7 +29,12 @@ import com.example.advprog2_4.viewmodels.ChatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.net.URISyntaxException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+import io.socket.client.IO;
 
 
 public class ContactsActivity extends AppCompatActivity {
@@ -90,6 +97,24 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
+        try {
+            Global.getInstance().setSocket(IO.socket(Global.getInstance().getServerAddress()));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        Global.getInstance().getSocket().connect();
+        Global.getInstance().getSocket().on("hello", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Looper.prepare();
+                Toast.makeText(ContactsActivity.this, "connected", Toast.LENGTH_SHORT).show();
+            }
+        });
+        Global.getInstance().getSocket().on("receiveMessage", args -> {
+            Looper.prepare();
+            Toast.makeText(ContactsActivity.this, "New message", Toast.LENGTH_SHORT).show();
+        });
         FloatingActionButton btnLogout = findViewById(R.id.btnLogout);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
@@ -148,6 +173,7 @@ public class ContactsActivity extends AppCompatActivity {
 
     protected void onDestroy() {
         super.onDestroy();
+        Global.getInstance().getSocket().disconnect();
         db.clearAllTables();
     }
 }

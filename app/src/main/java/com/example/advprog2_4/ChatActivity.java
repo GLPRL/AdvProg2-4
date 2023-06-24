@@ -71,11 +71,11 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
-       FloatingActionButton btnBack = findViewById(R.id.btnBack);
+        FloatingActionButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              finish();
+                finish();
             }
         });
     }
