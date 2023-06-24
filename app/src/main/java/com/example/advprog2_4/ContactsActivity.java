@@ -104,12 +104,7 @@ public class ContactsActivity extends AppCompatActivity {
         }
 
         Global.getInstance().getSocket().connect();
-        Global.getInstance().getSocket().on("hello", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Looper.prepare();
-            }
-        });
+
         Global.getInstance().getSocket().on("receiveMessage", args -> {
             Looper.prepare();
         });
