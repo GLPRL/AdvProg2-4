@@ -32,7 +32,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.net.URISyntaxException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import io.socket.client.IO;
 
@@ -108,7 +107,6 @@ public class ContactsActivity extends AppCompatActivity {
             @Override
             public void call(Object... args) {
                 Looper.prepare();
-                Toast.makeText(ContactsActivity.this, "connected", Toast.LENGTH_SHORT).show();
             }
         });
         Global.getInstance().getSocket().on("receiveMessage", args -> {

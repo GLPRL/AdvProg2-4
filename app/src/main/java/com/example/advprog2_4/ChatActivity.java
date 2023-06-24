@@ -19,6 +19,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,6 +70,9 @@ public class ChatActivity extends AppCompatActivity {
                     messagesAPI.postMessage(msg, Global.getInstance().getCurrentChatId());
                     //chatRecyclerView.scrollToPosition(messageList.size() - 1);
                     messageEditText.setText("");
+
+                    String chatID = String.valueOf(Global.getInstance().getCurrentChatId());
+                    Global.getInstance().getSocket().emit("newMessage", Global.getInstance().getCurrentChatId());
                     recreate();
                 }
             }
