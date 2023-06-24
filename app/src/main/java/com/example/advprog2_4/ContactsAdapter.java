@@ -59,7 +59,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
                     Global.getInstance().setCurrentChatId(contacts.get(adapterPosition).getId());
                     intent.putExtra("displayName", displayName);
                     // Pass any necessary data to the new activity
-                    context.startActivity(intent);
+
+                    // setting the current chatId in the Global instance
+                    Global.getInstance().setCurrentChatId(contacts.get(adapterPosition).getId());
+
 
                     // Reset background color after 5000 milliseconds
                     v.postDelayed(new Runnable() {
