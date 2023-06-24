@@ -32,7 +32,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsActivity extends AppCompatActivity {
     AppDB db;
-    String FBToken = "";
     ContactsAdapter contactsAdapter;
     private ChatsViewModel chatsViewModel;
 
@@ -147,7 +146,6 @@ public class ContactsActivity extends AppCompatActivity {
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             Global.getInstance().setFBToken(task.getResult());
-            FBToken = task.getResult();
             FirebaseTokenAPI fbTokenAPI = new FirebaseTokenAPI();
             fbTokenAPI.PostToken(Global.getInstance().getFBToken());
         });
