@@ -31,22 +31,24 @@ public class MessageService extends FirebaseMessagingService {
      */
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
-        if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
-            return;
-        }
-        if (message.getNotification() != null) {
-            createNotificationChannel();
-            SenderName = message.getNotification().getTitle();
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle("ChatApp")
-                    .setContentText("Message received from " + SenderName)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+        new Thread(() -> {
+            if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
                 return;
             }
-            notificationManager.notify(1, builder.build());
-        }
+            if (message.getNotification() != null) {
+                createNotificationChannel();
+                SenderName = message.getNotification().getTitle();
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle("ChatApp")
+                        .setContentText("Message received from " + SenderName)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                notificationManager.notify(1, builder.build());
+            }
+        }).start();
     }
 
     /**
