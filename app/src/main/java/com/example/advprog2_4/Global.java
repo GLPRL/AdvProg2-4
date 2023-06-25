@@ -2,6 +2,8 @@ package com.example.advprog2_4;
 
 import android.graphics.Bitmap;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import io.socket.client.Socket;
 
 public class Global {
@@ -15,6 +17,33 @@ public class Global {
     private ChatDao chatDao;
     private String FBToken = "";
     private Socket socket;
+    private RecyclerView recyclerView;
+    private RecyclerView chatRecyclerView;
+    private String currentChatUsername = "";
+
+    public RecyclerView getChatRecyclerView() {
+        return chatRecyclerView;
+    }
+
+    public void setChatRecyclerView(RecyclerView chatRecyclerView) {
+        this.chatRecyclerView = chatRecyclerView;
+    }
+
+    public String getCurrentChatUsername() {
+        return currentChatUsername;
+    }
+
+    public void setCurrentChatUsername(String currentChatUsername) {
+        this.currentChatUsername = currentChatUsername;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+    }
 
     public Socket getSocket() {
         return socket;

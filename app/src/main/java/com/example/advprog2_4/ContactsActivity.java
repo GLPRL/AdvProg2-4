@@ -81,18 +81,18 @@ public class ContactsActivity extends AppCompatActivity {
         profilePicView.setImageResource(R.drawable.profile_pic_2);
         profilePic.setImageBitmap(Global.getInstance().getUserProfilePic());
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerContacts);
+        Global.getInstance().setRecyclerView(findViewById(R.id.recyclerContacts));
         chatsViewModel.getChats().observe(this, chats -> {
-            recyclerView.setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
+            Global.getInstance().getRecyclerView().setAdapter(new ContactsAdapter(ContactsActivity.this, chats));
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.post(() -> {
-            if (recyclerView.getAdapter() == null) {
+        Global.getInstance().getRecyclerView().setLayoutManager(new LinearLayoutManager(this));
+        Global.getInstance().getRecyclerView().post(() -> {
+            if (Global.getInstance().getRecyclerView().getAdapter() == null) {
                 //do nothing
             } else {
-                int count = recyclerView.getAdapter().getItemCount();
+                int count = Global.getInstance().getRecyclerView().getAdapter().getItemCount();
                 if (count != 0) {
-                    recyclerView.scrollToPosition(count - 1);
+                    Global.getInstance().getRecyclerView().scrollToPosition(count - 1);
                 }
             }
         });
@@ -145,7 +145,7 @@ public class ContactsActivity extends AppCompatActivity {
                         if (!usernameToAdd.isEmpty()) {
                             ChatAPI api = new ChatAPI();
                             api.postChat(usernameToAdd);
-                            recyclerView.getAdapter().notifyDataSetChanged();
+                            Global.getInstance().getRecyclerView().getAdapter().notifyDataSetChanged();
                         }
                     }
                 });

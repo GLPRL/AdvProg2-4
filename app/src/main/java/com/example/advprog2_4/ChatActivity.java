@@ -23,7 +23,6 @@ import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
     private MaterialButton sendButton;
-    private RecyclerView chatRecyclerView;
     private EditText messageEditText;
     private MessagesViewModel messagesViewModel;
 
@@ -39,7 +38,7 @@ public class ChatActivity extends AppCompatActivity {
         de.hdodenhof.circleimageview.CircleImageView contactImage = findViewById(R.id.profilePicView);
         contactImage.setImageBitmap(Global.getInstance().getCurrentContactImage());
         messagesViewModel = new ViewModelProvider(this).get(MessagesViewModel.class);
-        chatRecyclerView = findViewById(R.id.chatRecyclerView);
+        Global.getInstance().setChatRecyclerView(findViewById(R.id.chatRecyclerView));
         sendButton = findViewById(R.id.sendButton);
         messageEditText = findViewById(R.id.messageEditText);
 
@@ -51,8 +50,9 @@ public class ChatActivity extends AppCompatActivity {
             for (int i = messageSize; i >= 0; i--) {
                 msgsReversed.add(messages.get(i));
             }
-            chatRecyclerView.setAdapter(new MessagesAdapter(ChatActivity.this, msgsReversed));
-            chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            Global.getInstance().getChatRecyclerView().setAdapter(new MessagesAdapter(ChatActivity.this, msgsReversed));
+            Global.getInstance().getChatRecyclerView().setLayoutManager(new LinearLayoutManager(this));
             //chatRecyclerView.scrollToPosition(messageList.size() - 1);
         });
 
@@ -78,6 +78,7 @@ public class ChatActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Global.getInstance().setCurrentChatUsername("");
                 Global.getInstance().setCurrentChatId(-1);
                 finish();
             }
