@@ -117,7 +117,9 @@ public class RegisterActivity extends AppCompatActivity {
                     BitmapDrawable imageDrawable = (BitmapDrawable) imageView.getDrawable();
                     Bitmap imageBitmap = imageDrawable.getBitmap();
                     ByteArrayOutputStream imageAsString = new ByteArrayOutputStream();
-                    imageBitmap.compress(Bitmap.CompressFormat.PNG,100,imageAsString);
+                    if(!(imageBitmap.compress(Bitmap.CompressFormat.JPEG,50,imageAsString))){
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG,50,imageAsString);
+                    };
                     byte[] temp = imageAsString.toByteArray();
                     String image = Base64.encodeToString(temp, Base64.DEFAULT);
 
