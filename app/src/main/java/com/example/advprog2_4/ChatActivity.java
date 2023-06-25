@@ -18,10 +18,6 @@ import com.example.advprog2_4.viewmodels.MessagesViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -82,6 +78,7 @@ public class ChatActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Global.getInstance().setCurrentChatId(-1);
                 finish();
             }
         });
