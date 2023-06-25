@@ -2,6 +2,7 @@ package com.example.advprog2_4;
 
 import android.graphics.Bitmap;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import io.socket.client.Socket;
@@ -20,6 +21,16 @@ public class Global {
     private RecyclerView recyclerView;
     private RecyclerView chatRecyclerView;
     private String currentChatUsername = "";
+
+    private MutableLiveData<String> ChatRenderTrigger = new MutableLiveData<>("");
+
+    public MutableLiveData<String> getChatRenderTrigger() {
+        return ChatRenderTrigger;
+    }
+
+    public void setChatRenderTrigger(MutableLiveData<String> chatRenderTrigger) {
+        ChatRenderTrigger = chatRenderTrigger;
+    }
 
     public RecyclerView getChatRecyclerView() {
         return chatRecyclerView;

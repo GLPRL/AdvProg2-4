@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.advprog2_4.api.MessagesAPI;
 import com.example.advprog2_4.objects.MessageItem;
 import com.example.advprog2_4.objects.PostMessageRequest;
+import com.example.advprog2_4.repositories.MessagesRepository;
 import com.example.advprog2_4.viewmodels.MessagesViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,6 +27,7 @@ public class ChatActivity extends AppCompatActivity {
     private MaterialButton sendButton;
     private EditText messageEditText;
     private MessagesViewModel messagesViewModel;
+    private List<MessageItem> msgsReversed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +45,9 @@ public class ChatActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.sendButton);
         messageEditText = findViewById(R.id.messageEditText);
 
-
         messagesViewModel.getMessages().observe(this, messages -> {
             int messageSize = messages.size() - 1;
-            List<MessageItem> msgsReversed = new LinkedList<>();
+             msgsReversed = new LinkedList<>();
 
             for (int i = messageSize; i >= 0; i--) {
                 msgsReversed.add(messages.get(i));
@@ -54,6 +56,10 @@ public class ChatActivity extends AppCompatActivity {
             Global.getInstance().getChatRecyclerView().setAdapter(new MessagesAdapter(ChatActivity.this, msgsReversed));
             Global.getInstance().getChatRecyclerView().setLayoutManager(new LinearLayoutManager(this));
             //chatRecyclerView.scrollToPosition(messageList.size() - 1);
+        });
+
+        Global.getInstance().getChatRenderTrigger().observe(this, str -> {
+            messagesViewModel.reload();
         });
 
         sendButton.setOnClickListener(new View.OnClickListener() {

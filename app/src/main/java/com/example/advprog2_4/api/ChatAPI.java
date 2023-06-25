@@ -47,7 +47,7 @@ public class ChatAPI {
                     if (response.body().get(i).getLastMessage() != null){
                         created = response.body().get(i).getLastMessage().getCreated();
                     }
-                    ConvertedChat temp = new ConvertedChat(response.body().get(i).getId(), response.body().get(i).getUser().getDisplayName(), response.body().get(i).getUser().getProfilePic(), created);
+                    ConvertedChat temp = new ConvertedChat(response.body().get(i).getId(), response.body().get(i).getUser().getDisplayName(), response.body().get(i).getUser().getProfilePic(), created, response.body().get(i).getUser().getUsername());
                     Global.getInstance().getChatDao().insert(temp);
                     //Subscribe to topics. Each topic is a chatID
                     String s = String.valueOf(response.body().get(i).getId());
@@ -75,7 +75,7 @@ public class ChatAPI {
                 if (response.code() == 200) {
                     String token = Global.getInstance().getToken();
                     PostChatResponse chat = response.body();
-                    ConvertedChat temp = new ConvertedChat(chat.getId(), chat.getContact().getDisplayName(), chat.getContact().getProfilePic(), "");
+                    ConvertedChat temp = new ConvertedChat(chat.getId(), chat.getContact().getDisplayName(), chat.getContact().getProfilePic(), "", "");
                     Global.getInstance().getChatDao().insert(temp);
                     String s = String.valueOf(chat.getId());
                     FirebaseMessaging.getInstance().subscribeToTopic(s);

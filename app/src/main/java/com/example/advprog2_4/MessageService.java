@@ -11,9 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import com.example.advprog2_4.api.MessagesAPI;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class MessageService extends FirebaseMessagingService {
@@ -46,9 +52,13 @@ public class MessageService extends FirebaseMessagingService {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
+            //TODO: activate this code.
+            if (Global.getInstance().getCurrentChatUsername().equals(SenderName)) {
+                Global.getInstance().getChatRenderTrigger().postValue(SenderName);
+            }
+
             notificationManager.notify(1, builder.build());
         }
-
     }
 
     /**
