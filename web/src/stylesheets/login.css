@@ -1,0 +1,67 @@
+.logreg{
+    margin-top: 10%;
+    margin-right: 40%;
+    margin-left: 40%;
+    margin-bottom: 20%;
+    background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+    color:white;
+    border-radius: 11px;
+}
+.form-group{
+    margin-left: 5%;
+}
+h1{
+    margin-left: 5%;
+}
+.margin5{
+    margin-left: 5%;
+}
+.placeregister{
+    width:60vh;
+}
+.place{
+    width: 30vh;
+}
+body{
+    background-image: url("../images/background.jpg");
+}
+
+
+.register{
+    margin-top: 10%;
+    margin-right: 30%;
+    margin-left: 30%;
+    margin-bottom: 20%;
+    background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+    color:white;
+    border-radius: 11px;
+}
+.orangelink{
+    color:orange;
+}
+.orangelink:hover {
+    color: #2fffd9
+}
+#orbtn {
+    background-color: orange;
+    border-color: #885703;
+    color: black;
+}
+
+#text {
+    font-family: optima, sans-serif;
+}
+.marginRight{
+    margin-right: 1%;
+}
+#chooseImg{
+    width: 50px;
+    height: 50px;
+
+}
+.marginLeft1{
+    margin-left: 1%;
+}
+.modalRegister{
+    display: block !important;
+}
