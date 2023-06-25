@@ -55,7 +55,7 @@ public class ChatActivity extends AppCompatActivity {
 
             Global.getInstance().getChatRecyclerView().setAdapter(new MessagesAdapter(ChatActivity.this, msgsReversed));
             Global.getInstance().getChatRecyclerView().setLayoutManager(new LinearLayoutManager(this));
-            //chatRecyclerView.scrollToPosition(messageList.size() - 1);
+            Global.getInstance().getChatRecyclerView().scrollToPosition(Global.getInstance().getChatRecyclerView().getAdapter().getItemCount() - 1);
         });
 
         Global.getInstance().getChatRenderTrigger().observe(this, str -> {
