@@ -3,6 +3,7 @@ package com.example.advprog2_4.repositories;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.advprog2_4.Global;
 import com.example.advprog2_4.api.MessagesAPI;
 import com.example.advprog2_4.objects.MessageItem;
 
@@ -40,5 +41,9 @@ public class MessagesRepository {
 
     public LiveData<List<MessageItem>> getMessages() {
         return messageListData;
+    }
+
+    public void reload(){
+        messagesAPI.getMessages(this.messageListData, this.chatId);
     }
 }

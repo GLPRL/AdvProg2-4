@@ -24,4 +24,16 @@ public class MessagesViewModel extends ViewModel {
     public LiveData<List<MessageItem>> getMessages() {
         return messages;
     }
+
+    public MessagesRepository getMessagesRepository() {
+        return messagesRepository;
+    }
+
+    public void setMessagesRepository(MessagesRepository messagesRepository) {
+        this.messagesRepository = messagesRepository;
+    }
+
+    public void reload(){
+        messagesRepository.reload();
+    }
 }

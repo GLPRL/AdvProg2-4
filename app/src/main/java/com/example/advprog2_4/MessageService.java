@@ -11,9 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import com.example.advprog2_4.api.MessagesAPI;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class MessageService extends FirebaseMessagingService {
@@ -26,28 +32,33 @@ public class MessageService extends FirebaseMessagingService {
 
     /**
      * If application has notifications permissions, then display the notification.
+     *
      * @param message Remote message that has been received.
      */
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
-        new Thread(() -> {
-            if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+
+        if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+            return;
+        }
+        if (message.getNotification() != null) {
+            createNotificationChannel();
+            SenderName = message.getNotification().getTitle();
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setContentTitle("ChatApp")
+                    .setContentText("Message received from " + SenderName)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            if (message.getNotification() != null) {
-                createNotificationChannel();
-                SenderName = message.getNotification().getTitle();
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle("ChatApp")
-                        .setContentText("Message received from " + SenderName)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                notificationManager.notify(1, builder.build());
+            //TODO: activate this code.
+            if (Global.getInstance().getCurrentChatUsername().equals(SenderName)) {
+                Global.getInstance().getChatRenderTrigger().postValue(SenderName);
             }
-        }).start();
+
+            notificationManager.notify(1, builder.build());
+        }
     }
 
     /**

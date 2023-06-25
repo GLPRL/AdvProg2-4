@@ -11,12 +11,22 @@ public class ConvertedChat {
     private String displayName;
     private String profilePic;
     private String created;
+    private String username;
 
-    public ConvertedChat(int id, String displayName, String profilePic, String created) {
+    public ConvertedChat(int id, String displayName, String profilePic, String created, String username) {
         this.id = id;
         this.displayName = displayName;
         this.profilePic = profilePic;
         this.created = created;
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getId() {
