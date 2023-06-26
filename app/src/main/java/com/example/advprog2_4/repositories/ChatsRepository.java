@@ -42,4 +42,8 @@ public class ChatsRepository {
         chatAPI.getAll(this.chatListData);
         return chatDao.index();
     }
+
+    public void reload(){
+        chatAPI.getAll(this.chatListData);
+    }
 }

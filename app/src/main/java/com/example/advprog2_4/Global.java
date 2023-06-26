@@ -24,6 +24,16 @@ public class Global {
 
     private MutableLiveData<String> ChatRenderTrigger = new MutableLiveData<>("");
 
+    private MutableLiveData<String> contactRenderTrigger = new MutableLiveData<>("");
+
+    public MutableLiveData<String> getContactRenderTrigger() {
+        return contactRenderTrigger;
+    }
+
+    public void setContactRenderTrigger(MutableLiveData<String> contactRenderTrigger) {
+        this.contactRenderTrigger = contactRenderTrigger;
+    }
+
     public MutableLiveData<String> getChatRenderTrigger() {
         return ChatRenderTrigger;
     }

@@ -20,4 +20,8 @@ public class ChatsViewModel extends ViewModel {
     public LiveData<List<ConvertedChat>> getChats() {
         return chatsRepository.getAll();
     }
+
+    public void reload(){
+        chatsRepository.reload();
+    }
 }

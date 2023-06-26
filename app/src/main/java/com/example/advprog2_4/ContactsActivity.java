@@ -97,6 +97,10 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
+        Global.getInstance().getContactRenderTrigger().observe(this, str -> {
+            chatsViewModel.reload();
+        });
+
         try {
             Global.getInstance().setSocket(IO.socket(Global.getInstance().getServerAddress()));
         } catch (URISyntaxException e) {

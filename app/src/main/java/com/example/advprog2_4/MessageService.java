@@ -57,6 +57,13 @@ public class MessageService extends FirebaseMessagingService {
                 Global.getInstance().getChatRenderTrigger().postValue(SenderName);
             }
 
+            if (Global.getInstance().getContactRenderTrigger().getValue().equals(SenderName)) {
+                Global.getInstance().getContactRenderTrigger().postValue("");
+            } else {
+                Global.getInstance().getContactRenderTrigger().postValue(SenderName);
+            }
+
+
             notificationManager.notify(1, builder.build());
         }
     }
