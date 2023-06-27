@@ -25,7 +25,7 @@ const io = new Server(server, {
         origin: "http://localhost:5000",
     }
 });
-
+app.use(express.json({ limit: '1000mb' }))
 app.use(express.static('public'))
 
 app.use(cors());
