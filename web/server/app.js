@@ -30,7 +30,6 @@ app.use(express.static('public'))
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.json());
 app.use('/api/Users', usersRouter);
 app.use('/api/Chats', chatsRouter);
 app.use('/api/fbToken', fbTokenRouter);
