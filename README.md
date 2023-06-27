@@ -30,9 +30,18 @@ cd web
 cd server
 node app.js
 ```
+When opening the application, at the top left there is a settings button, in there enter the server address.
+Afterwards you can log in/register as you wish.
+For our server use the address : http://10.0.2.2:5000
+
+IMPORTANT : Do not upload profile pictures that have dimensions bigger than 4000x4000.
+            Upload images of type .jpeg or .png only.
 
 For starting the application, start Android Studio. You can start the emulator in the program,
 or start in the phone.
 
 If you want an APK, then do the following: Build -> Build Bundle(s)/APK(s) > Build APK(s) .
 You can send the APK to your phone and run it.
+
+
+
