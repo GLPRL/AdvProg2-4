@@ -32,7 +32,8 @@ node app.js
 ```
 When opening the application, at the top left there is a settings button, in there enter the server address.
 Afterwards you can log in/register as you wish.
-For our server use the address : http://10.0.2.2:5000
+If you're running the emulator on Android Studio, and the server is running on the same computer,
+then the server address in the emulator will be: http://10.0.2.2:5000
 
 IMPORTANT : Do not upload profile pictures that have dimensions bigger than 4000x4000.
             Upload images of type .jpeg or .png only.
